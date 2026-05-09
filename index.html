@@ -3,87 +3,202 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Floating Point Storage Explorer</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Explainers</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17202a;
+        --muted: #5b6975;
+        --paper: #f7f8f3;
+        --panel: #ffffff;
+        --line: #d9dfda;
+        --accent: #c76a29;
+        --teal: #167f7d;
+        --indigo: #5b63b7;
+        --shadow: 0 22px 70px rgba(36, 44, 51, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          linear-gradient(135deg, rgba(22, 127, 125, 0.12), transparent 38%),
+          linear-gradient(315deg, rgba(199, 106, 41, 0.12), transparent 40%),
+          var(--paper);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .shell {
+        width: calc(100% - 32px);
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 48px 0 64px;
+      }
+
+      .hero {
+        display: grid;
+        align-items: end;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 28px;
+        min-height: clamp(220px, 36vh, 360px);
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 0;
+        font-size: clamp(3rem, 8vw, 6.7rem);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .summary {
+        max-width: 340px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.55;
+      }
+
+      .explainer-list {
+        display: grid;
+        gap: 14px;
+        margin-top: 36px;
+      }
+
+      .explainer-card {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 24px;
+        align-items: center;
+        min-height: 142px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: var(--shadow);
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .explainer-card:hover,
+      .explainer-card:focus-visible {
+        border-color: var(--accent);
+        outline: none;
+      }
+
+      .explainer-card h2 {
+        margin: 0 0 8px;
+        font-size: clamp(1.45rem, 3vw, 2.15rem);
+        letter-spacing: 0;
+      }
+
+      .explainer-card p {
+        max-width: 640px;
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .meta span {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 6px 10px;
+        background: #fbfcfa;
+        color: var(--muted);
+        font-size: 0.84rem;
+        font-weight: 800;
+      }
+
+      .arrow {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 1.4rem;
+        line-height: 1;
+      }
+
+      .empty-note {
+        margin-top: 18px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 720px) {
+        .shell {
+          width: calc(100% - 20px);
+          padding-top: 28px;
+        }
+
+        .hero,
+        .explainer-card {
+          grid-template-columns: 1fr;
+        }
+
+        .summary {
+          max-width: 620px;
+        }
+
+        .arrow {
+          justify-self: start;
+        }
+      }
+    </style>
   </head>
   <body>
     <main class="shell">
       <section class="hero" aria-labelledby="page-title">
-        <div class="hero-copy">
-          <p class="eyebrow">IEEE 754 single precision</p>
-          <h1 id="page-title">How computers store floating point numbers</h1>
-          <p>
-            Pick a number and walk through the exact fields a 32-bit float uses:
-            sign, exponent, and fraction.
-          </p>
+        <div>
+          <p class="eyebrow">Interactive explainers</p>
+          <h1 id="page-title">Explainers</h1>
         </div>
-        <div class="float-card" aria-label="32-bit float field summary">
-          <div class="bit-band">
-            <span class="band-sign"></span>
-            <span class="band-exponent"></span>
-            <span class="band-fraction"></span>
+        <p class="summary">
+          A growing collection of focused, visual explanations for technical topics.
+        </p>
+      </section>
+
+      <section class="explainer-list" aria-label="Full list of explainers">
+        <a class="explainer-card" href="floating-point/">
+          <div>
+            <p class="eyebrow">Computer science</p>
+            <h2>How floating point numbers are stored</h2>
+            <p>
+              Step through the sign bit, exponent bias, fraction bits, and the exact
+              32-bit pattern used by IEEE 754 single precision numbers.
+            </p>
+            <div class="meta" aria-label="Explainer details">
+              <span>Interactive</span>
+              <span>IEEE 754</span>
+              <span>Float32</span>
+            </div>
           </div>
-          <div class="field-labels">
-            <span>1 sign bit</span>
-            <span>8 exponent bits</span>
-            <span>23 fraction bits</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="control-panel" aria-label="Number controls">
-        <label class="number-entry">
-          <span>Number to store</span>
-          <input id="number-input" type="number" value="13.625" step="any">
-        </label>
-        <div class="preset-row" aria-label="Example numbers">
-          <button type="button" data-preset="0.1">0.1</button>
-          <button type="button" data-preset="-5.75">-5.75</button>
-          <button type="button" data-preset="13.625">13.625</button>
-          <button type="button" data-preset="156.25">156.25</button>
-          <button type="button" data-preset="0.000000000000000000000000000000000000000000001">Tiny</button>
-        </div>
-        <div class="stored-value" aria-live="polite">
-          <span>Stored as float32</span>
-          <strong id="stored-decimal">13.625</strong>
-        </div>
-      </section>
-
-      <section class="bit-explorer" aria-labelledby="bits-title">
-        <div class="section-heading">
-          <p class="eyebrow">The 32 bits</p>
-          <h2 id="bits-title">Every bit has a job</h2>
-        </div>
-        <div id="bit-grid" class="bit-grid" aria-label="Bit pattern"></div>
-        <div class="legend" aria-label="Bit field legend">
-          <span><i class="sign-dot"></i> sign</span>
-          <span><i class="exponent-dot"></i> exponent</span>
-          <span><i class="fraction-dot"></i> fraction</span>
-        </div>
-      </section>
-
-      <section class="lesson" aria-label="Step by step explanation">
-        <nav class="step-tabs" aria-label="Lesson steps">
-          <button type="button" data-step="0" class="active">1</button>
-          <button type="button" data-step="1">2</button>
-          <button type="button" data-step="2">3</button>
-          <button type="button" data-step="3">4</button>
-          <button type="button" data-step="4">5</button>
-        </nav>
-
-        <article class="step-card" id="step-card" aria-live="polite">
-          <p class="step-count" id="step-count">Step 1 of 5</p>
-          <h2 id="step-title">Sign</h2>
-          <div id="step-body"></div>
-        </article>
-
-        <div class="formula-panel" aria-label="Floating point formula">
-          <p>Value represented by normal float32 numbers</p>
-          <code>(-1)<sup>sign</sup> x 1.fraction x 2<sup>exponent - 127</sup></code>
-        </div>
+          <span class="arrow" aria-hidden="true">-></span>
+        </a>
       </section>
     </main>
-
-    <script src="app.js"></script>
   </body>
 </html>
