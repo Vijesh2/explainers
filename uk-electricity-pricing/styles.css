@@ -444,16 +444,20 @@ input {
 
 .tradeoff-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
   margin-top: 16px;
 }
 
 .tradeoff-grid div {
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 12px;
+  padding: 14px;
   background: #fff;
+}
+
+.tradeoff-grid .wide {
+  grid-column: 1 / -1;
 }
 
 .tradeoff-grid strong {
@@ -464,7 +468,8 @@ input {
 
 .tradeoff-grid p {
   margin: 0;
-  font-size: 0.94rem;
+  font-size: 0.98rem;
+  line-height: 1.62;
 }
 
 .matrix {

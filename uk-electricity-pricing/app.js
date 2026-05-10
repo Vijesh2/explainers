@@ -23,8 +23,14 @@ const alternatives = {
     tradeoffs: [
       ["What it changes", "The market no longer automatically pays low-cost generators the gas-set clearing price."],
       ["Why it sounds attractive", "It feels closer to paying each generator its own cost, so wind or nuclear would not visibly receive the gas price."],
-      ["What could go wrong", "Generators may bid what they expect the clearing price to be, rather than their true short-run cost. The auction can become less transparent without reliably lowering prices."],
-      ["When it might help", "It can work in some procurement contexts, but it is not a simple swap for live wholesale market clearing."]
+      [
+        "What could go wrong",
+        "In a pay-as-bid system, a generator is paid its own bid. That does not mean it will bid its true cost. If wind costs about £10/MWh to run, but operators expect gas to be needed at about £140/MWh, a wind generator may bid £120/MWh or £135/MWh rather than £10/MWh. The market can become a forecasting game: generators try to guess the highest accepted price, which makes bids less transparent and may not reliably lower consumer prices."
+      ],
+      [
+        "When it might help",
+        "Pay-as-bid can work better in procurement-style settings, where a buyer asks for a defined product: backup capacity, demand flexibility, or a long-term renewable contract. Suppliers submit offers, winners receive their bid price, and the product is specified in advance. That is different from the live wholesale market, where supply and demand must be balanced continuously. For that live market, pay-as-bid is not a simple swap because generators would change how they bid."
+      ]
     ]
   },
   average: {
@@ -131,8 +137,8 @@ function renderAlternative(key) {
     <h3>${option.title}</h3>
     <p>${option.intro}</p>
     <div class="tradeoff-grid">
-      ${option.tradeoffs.map(([heading, body]) => `
-        <div>
+      ${option.tradeoffs.map(([heading, body], index) => `
+        <div class="${index > 1 ? "wide" : ""}">
           <strong>${heading}</strong>
           <p>${body}</p>
         </div>
