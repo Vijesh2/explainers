@@ -6,6 +6,7 @@ const bitGrid = document.querySelector("#bit-grid");
 const appendixBitGrid = document.querySelector("#appendix-bit-grid");
 const appendix = document.querySelector("#appendix");
 const stepTabs = [...document.querySelectorAll("[data-step]")];
+const appendixTab = document.querySelector("#appendix-tab");
 const presetButtons = [...document.querySelectorAll("[data-preset]")];
 const stepCount = document.querySelector("#step-count");
 const stepTitle = document.querySelector("#step-title");
@@ -302,6 +303,12 @@ stepTabs.forEach((tab) => {
     activeStep = Number(tab.dataset.step);
     render();
   });
+});
+
+appendixTab.addEventListener("click", () => {
+  activeStep = stepContent(float32Parts(WORKED_EXAMPLE)).length - 1;
+  render();
+  appendix.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 render();
