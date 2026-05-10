@@ -398,6 +398,30 @@ input {
   line-height: 1.55;
 }
 
+.explain-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.note-box p {
+  margin: 8px 0;
+}
+
+.note-box p:last-child {
+  margin-bottom: 0;
+}
+
+.note-box code {
+  display: block;
+  margin: 8px 0;
+  color: var(--ink);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  line-height: 1.55;
+  white-space: normal;
+}
+
 .inline-formula {
   background: #f2f5f1;
 }
@@ -477,6 +501,10 @@ input {
   }
 
   .format-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .explain-grid {
     grid-template-columns: 1fr;
   }
 

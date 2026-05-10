@@ -170,12 +170,27 @@ function stepContent(parts) {
       body: `
         <p>Before the number can be stored in bits, the example is written in base 2. In base 10, places are ones, tens, hundreds. In base 2, places are 1, 2, 4, 8 to the left of the point, and 1/2, 1/4, 1/8 to the right.</p>
         <p>For the worked example we ignore the sign for a moment and convert <strong>${formatNumber(absoluteRounded)}</strong>.</p>
+        <div class="explain-grid">
+          <div class="note-box">
+            <strong>Whole part: 13</strong>
+            <p>Break 13 into powers of two:</p>
+            <code>13 = 8 + 4 + 1</code>
+            <p>Read the 8, 4, 2, 1 columns from left to right. Use <strong>1</strong> when that power is included and <strong>0</strong> when it is not.</p>
+            <code>8  4  2  1<br>1  1  0  1</code>
+            <p>So 13 becomes <strong>1101</strong>.</p>
+          </div>
+          <div class="note-box">
+            <strong>Fraction part: 0.625</strong>
+            <p>Build bits after the point by repeatedly doubling the fractional remainder:</p>
+            <code>0.625 x 2 = 1.25 -> bit 1, remainder 0.25<br>0.25 x 2 = 0.5 -> bit 0, remainder 0.5<br>0.5 x 2 = 1.0 -> bit 1, remainder 0</code>
+            <p>The bits are <strong>101</strong>, so 0.625 becomes <strong>.101</strong>.</p>
+          </div>
+        </div>
         ${htmlRows([
           ["Whole part", `${Math.floor(absoluteRounded)} in decimal -> ${integerPart} in binary`],
           ["Fraction part", `${formatNumber(absoluteRounded - Math.floor(absoluteRounded))} in decimal -> .${fractionPart} in binary`],
           ["Together", `${binaryApprox}`]
         ])}
-        <div class="note-box">Fraction bits are found by repeatedly doubling the fractional remainder. Each time the doubled value reaches 1, the next bit is 1; otherwise it is 0.</div>
       `
     },
     {
