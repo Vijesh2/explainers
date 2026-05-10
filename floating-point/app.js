@@ -299,6 +299,8 @@ presetButtons.forEach((button) => {
 
 stepTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
+    document.body.classList.remove("appendix-mode");
+    appendix.hidden = true;
     activeStep = Number(tab.dataset.step);
     render();
   });

@@ -438,7 +438,7 @@ input {
 .appendix-mode .hero,
 .appendix-mode .example-panel,
 .appendix-mode .bit-explorer,
-.appendix-mode .lesson {
+.appendix-mode .step-card {
   display: none;
 }
 
