@@ -307,8 +307,9 @@ stepTabs.forEach((tab) => {
 appendixTab.addEventListener("click", () => {
   activeStep = stepContent(float32Parts(WORKED_EXAMPLE)).length - 1;
   render();
+  document.body.classList.add("appendix-mode");
   appendix.hidden = false;
-  appendix.scrollIntoView({ behavior: "smooth", block: "start" });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 render();

@@ -435,6 +435,17 @@ input {
   display: none;
 }
 
+.appendix-mode .hero,
+.appendix-mode .example-panel,
+.appendix-mode .bit-explorer,
+.appendix-mode .lesson {
+  display: none;
+}
+
+.appendix-mode .appendix {
+  margin-top: 0;
+}
+
 .format-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
