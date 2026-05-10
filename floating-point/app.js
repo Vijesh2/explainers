@@ -82,14 +82,30 @@ function formatNumber(value) {
   return value.toPrecision(9).replace(/\.?0+($|e)/, "$1");
 }
 
-function normalSignificand(parts) {
-  if (parts.classification === "subnormal") {
-    return `0.${parts.fractionBits}`;
-  }
+function compactFractionBits(bits) {
+  const compact = bits.replace(/0+$/, "");
+  return compact || "0";
+}
+
+function storedSignificand(parts) {
   if (parts.classification === "normal") {
-    return `1.${parts.fractionBits}`;
+    return `1.${compactFractionBits(parts.fractionBits)}`;
+  }
+  if (parts.classification === "subnormal") {
+    return `0.${compactFractionBits(parts.fractionBits)}`;
   }
   return "special value";
+}
+
+function binaryPointMovement(exponent) {
+  if (exponent === 0) {
+    return "The binary point is already after the first 1.";
+  }
+
+  const direction = exponent > 0 ? "left" : "right";
+  const count = Math.abs(exponent);
+  const places = count === 1 ? "place" : "places";
+  return `Move the binary point ${count} ${places} ${direction} so the number starts with one digit before the point.`;
 }
 
 function htmlRows(rows) {
@@ -119,6 +135,8 @@ function renderBits(parts) {
 
 function stepContent(parts) {
   const absoluteRounded = Math.abs(parts.rounded);
+  const integerPart = integerBinary(parts.rounded);
+  const fractionPart = fractionBinary(parts.rounded);
   const binaryApprox = `${integerBinary(parts.rounded)}.${fractionBinary(parts.rounded)}`;
   const signMeaning = parts.sign === "1" ? "negative" : "positive";
 
@@ -132,33 +150,36 @@ function stepContent(parts) {
     {
       title: "Sign",
       body: `
-        <p>The first bit stores only the direction of the number. A <strong>0</strong> means positive, and a <strong>1</strong> means negative.</p>
+        <p>The first bit answers one question: is the number positive or negative?</p>
+        <p>A sign bit of <strong>0</strong> means positive. A sign bit of <strong>1</strong> means negative.</p>
         ${htmlRows([
-          ["Rounded input", formatNumber(parts.rounded)],
-          ["Sign bit", `${parts.sign} (${signMeaning})`],
-          ["Magnitude", formatNumber(absoluteRounded)]
+          ["Sign bit", `${parts.sign}`],
+          ["Meaning", signMeaning]
         ])}
       `
     },
     {
       title: "Convert to binary",
       body: `
-        <p>Computers store the value in base 2. Whole-number places are powers of two to the left of the point; fractional places are halves, quarters, eighths, and so on.</p>
+        <p>Before the number can be stored in bits, the example is written in base 2. In base 10, places are ones, tens, hundreds. In base 2, places are 1, 2, 4, 8 to the left of the point, and 1/2, 1/4, 1/8 to the right.</p>
+        <p>For the worked example we ignore the sign for a moment and convert <strong>${formatNumber(absoluteRounded)}</strong>.</p>
         ${htmlRows([
-          ["Decimal", formatNumber(absoluteRounded)],
-          ["Binary form", binaryApprox],
-          ["Pattern", "The fractional part is found by repeatedly multiplying the remainder by 2."]
+          ["Whole part", `${Math.floor(absoluteRounded)} in decimal -> ${integerPart} in binary`],
+          ["Fraction part", `${formatNumber(absoluteRounded - Math.floor(absoluteRounded))} in decimal -> .${fractionPart} in binary`],
+          ["Together", `${binaryApprox}`]
         ])}
+        <div class="note-box">Fraction bits are found by repeatedly doubling the fractional remainder. Each time the doubled value reaches 1, the next bit is 1; otherwise it is 0.</div>
       `
     },
     {
       title: "Normalize",
       body: `
-        <p>Normal floats move the binary point until one non-zero digit sits before it. The number of moves becomes the exponent.</p>
+        <p>Floating point stores numbers in a compact scientific-notation style. The binary point is moved until the number starts with exactly one digit before the point.</p>
+        <p>The number of places moved becomes the exponent. This is why it is called <strong>floating point</strong>: the point can move.</p>
         ${htmlRows([
-          ["Significand", normalSignificand(parts)],
-          ["Power of two", parts.classification === "normal" ? `2^${parts.unbiasedExponent}` : "special case"],
-          ["Meaning", parts.classification === "normal" ? `${normalSignificand(parts)} x 2^${parts.unbiasedExponent}` : "subnormal, zero, infinity, and NaN values use reserved exponent patterns"]
+          ["Before", binaryApprox],
+          ["Move", parts.classification === "normal" ? binaryPointMovement(parts.unbiasedExponent) : "Special case"],
+          ["After", parts.classification === "normal" ? `${storedSignificand(parts)} x 2^${parts.unbiasedExponent}` : "Subnormal, zero, infinity, and NaN values use reserved exponent patterns"]
         ])}
         ${specialNote}
       `
@@ -166,10 +187,10 @@ function stepContent(parts) {
     {
       title: "Store the exponent",
       body: `
-        <p>Float32 uses an 8-bit exponent with a bias of 127. Instead of storing the exponent directly, it stores <strong>exponent + 127</strong>.</p>
+        <p>The exponent records how far the binary point moved. Float32 does not store that number directly; it adds a fixed bias of 127 first, so negative and positive exponents can both fit in the same 8-bit field.</p>
         ${htmlRows([
-          ["Real exponent", parts.classification === "normal" ? parts.unbiasedExponent : "reserved"],
-          ["Stored exponent", parts.rawExponent],
+          ["Point movement", parts.classification === "normal" ? `${parts.unbiasedExponent}` : "reserved"],
+          ["Add the bias", parts.classification === "normal" ? `${parts.unbiasedExponent} + 127 = ${parts.rawExponent}` : "reserved exponent pattern"],
           ["Exponent bits", groupedBits(parts.exponentBits)]
         ])}
       `
@@ -177,7 +198,7 @@ function stepContent(parts) {
     {
       title: "Store the fraction",
       body: `
-        <p>For normal numbers, the leading <strong>1</strong> is assumed and does not need a bit. The remaining digits after the binary point fill the 23 fraction bits.</p>
+        <p>After normalization, normal numbers always start with <strong>1.</strong>. Because that leading 1 is guaranteed, float32 does not spend a bit storing it. It stores only the digits after the point.</p>
         ${htmlRows([
           ["Sign", parts.sign],
           ["Exponent", groupedBits(parts.exponentBits)],
@@ -185,6 +206,7 @@ function stepContent(parts) {
           ["All 32 bits", groupedBits(parts.bits)],
           ["Hex view", parts.hex]
         ])}
+        <div class="inline-formula"><code>value = (-1)^sign x 1.fraction x 2^(exponent - 127)</code></div>
         <p>The stored float32 value is <strong>${formatNumber(parts.rounded)}</strong>. If that differs from the decimal you typed, the nearest available 32-bit pattern was chosen.</p>
       `
     }
