@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Why gas sets UK electricity prices</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">UK electricity markets</p>
+          <h1 id="page-title">Why gas sets electricity prices</h1>
+          <p>
+            A simple market-clearing model for the UK: cheaper power is used first,
+            but the final generator needed to meet demand often sets the wholesale
+            price for everyone.
+          </p>
+        </div>
+        <div class="hero-meter" aria-hidden="true">
+          <span>wind</span>
+          <span>nuclear</span>
+          <span>imports</span>
+          <span>gas</span>
+        </div>
+      </section>
+
+      <section class="setup-panel" aria-label="Central idea">
+        <p>
+          The puzzle is not that all electricity is made from gas. It is that
+          the wholesale market usually clears at the price of the most expensive
+          generator still needed. In Britain, that marginal generator is often gas.
+        </p>
+      </section>
+
+      <section class="model" aria-labelledby="model-title">
+        <div class="section-heading">
+          <p class="eyebrow">Interactive model</p>
+          <h2 id="model-title">Move demand, wind, and gas costs</h2>
+        </div>
+
+        <div class="model-grid">
+          <form class="controls" aria-label="Market conditions">
+            <label>
+              <span>Electricity demand</span>
+              <input id="demand-input" type="range" min="28" max="54" value="42">
+            </label>
+            <label>
+              <span>Wind output</span>
+              <input id="wind-input" type="range" min="4" max="24" value="13">
+            </label>
+            <label>
+              <span>Gas price</span>
+              <input id="gas-input" type="range" min="80" max="240" value="140">
+            </label>
+          </form>
+
+          <div class="market-readout" aria-live="polite">
+            <div>
+              <span>Clearing price</span>
+              <strong id="clearing-price">£140/MWh</strong>
+            </div>
+            <div>
+              <span>Marginal source</span>
+              <strong id="marginal-source">gas</strong>
+            </div>
+            <div>
+              <span>Demand met</span>
+              <strong id="demand-met">42 GW</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-wrap">
+          <div class="stack-axis" aria-hidden="true">
+            <span>cheaper</span>
+            <span>more expensive</span>
+          </div>
+          <div id="supply-stack" class="supply-stack" aria-label="Merit order supply stack"></div>
+          <div class="demand-line" id="demand-line" aria-hidden="true">
+            <span>demand</span>
+          </div>
+        </div>
+        <p id="model-summary" class="model-summary">
+          Gas is needed to meet the last slice of demand, so gas sets the clearing price.
+        </p>
+      </section>
+
+      <section class="lesson" aria-labelledby="lesson-title">
+        <div class="section-heading">
+          <p class="eyebrow">Core mechanism</p>
+          <h2 id="lesson-title">The first half: how the price is formed</h2>
+        </div>
+
+        <div class="step-grid">
+          <article>
+            <span>1</span>
+            <h3>Rank generators by running cost</h3>
+            <p>
+              Wind, solar, nuclear, and some imports usually have lower short-run
+              operating costs than gas. The market stacks available supply from
+              cheaper to more expensive.
+            </p>
+          </article>
+          <article>
+            <span>2</span>
+            <h3>Use enough supply to meet demand</h3>
+            <p>
+              The system accepts blocks of generation until demand is covered.
+              The last accepted block is the marginal generator.
+            </p>
+          </article>
+          <article>
+            <span>3</span>
+            <h3>Pay the clearing price</h3>
+            <p>
+              In a pay-as-clear market, accepted generators receive the market
+              clearing price for that period, even if some bid below it.
+            </p>
+          </article>
+          <article>
+            <span>4</span>
+            <h3>Gas often fills the gap</h3>
+            <p>
+              Gas plants are flexible and dispatchable, so they often cover the
+              final slice when demand is high or renewable output is low.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="bridge" aria-label="Policy transition">
+        <p class="eyebrow">The tempting question</p>
+        <h2>Why not just change the pricing rule?</h2>
+        <p>
+          That question is worth asking, but the answer is not a single obvious
+          fix. Different designs shift risk, investment signals, and costs in
+          different places.
+        </p>
+      </section>
+
+      <section class="alternatives" aria-labelledby="alternatives-title">
+        <div class="section-heading">
+          <p class="eyebrow">Alternatives and tradeoffs</p>
+          <h2 id="alternatives-title">The second half: what could go wrong</h2>
+        </div>
+
+        <div class="alternative-tabs" role="tablist" aria-label="Alternative pricing approaches">
+          <button type="button" class="active" role="tab" aria-selected="true" data-alternative="paybid">Pay-as-bid</button>
+          <button type="button" role="tab" aria-selected="false" data-alternative="average">Average cost</button>
+          <button type="button" role="tab" aria-selected="false" data-alternative="split">Split markets</button>
+          <button type="button" role="tab" aria-selected="false" data-alternative="cap">Price caps</button>
+          <button type="button" role="tab" aria-selected="false" data-alternative="zonal">Zonal pricing</button>
+        </div>
+
+        <article class="alternative-card" id="alternative-card" aria-live="polite"></article>
+
+        <div class="matrix" aria-label="Comparison of reform options">
+          <div class="matrix-row matrix-head">
+            <span>Approach</span>
+            <span>Short-term bill relief</span>
+            <span>Scarcity signal</span>
+            <span>Investment signal</span>
+            <span>Complexity</span>
+          </div>
+          <div class="matrix-row">
+            <span>Pay-as-bid</span>
+            <strong>uncertain</strong>
+            <strong>mixed</strong>
+            <strong>mixed</strong>
+            <strong>medium</strong>
+          </div>
+          <div class="matrix-row">
+            <span>Average cost</span>
+            <strong>possible</strong>
+            <strong>weaker</strong>
+            <strong>mixed</strong>
+            <strong>high</strong>
+          </div>
+          <div class="matrix-row">
+            <span>Split markets</span>
+            <strong>possible</strong>
+            <strong>depends</strong>
+            <strong>uncertain</strong>
+            <strong>high</strong>
+          </div>
+          <div class="matrix-row">
+            <span>Price caps</span>
+            <strong>visible</strong>
+            <strong>weaker</strong>
+            <strong>riskier</strong>
+            <strong>medium</strong>
+          </div>
+          <div class="matrix-row">
+            <span>Zonal pricing</span>
+            <strong>uneven</strong>
+            <strong>stronger</strong>
+            <strong>stronger locally</strong>
+            <strong>high</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="synthesis" aria-labelledby="synthesis-title">
+        <div class="section-heading">
+          <p class="eyebrow">Mental model</p>
+          <h2 id="synthesis-title">What actually reduces gas's influence</h2>
+        </div>
+        <div class="synthesis-grid">
+          <p>
+            More renewables help most when they push gas out of the marginal
+            position. Storage, flexible demand, interconnectors, and grid upgrades
+            all make that easier.
+          </p>
+          <p>
+            Long-term contracts can also reduce how much wholesale volatility
+            reaches consumers, even while the live market still needs a price for
+            balancing supply and demand.
+          </p>
+          <p>
+            The issue is not that marginal pricing is obviously wrong. It is that
+            consumers remain exposed to gas prices while gas is still often the
+            final generator needed.
+          </p>
+        </div>
+      </section>
+
+      <section class="sources" aria-labelledby="sources-title">
+        <h2 id="sources-title">Sources to check when writing the final copy</h2>
+        <ul>
+          <li><a href="https://www.ofgem.gov.uk/blog/what-drives-wholesale-electricity-prices-britain">Ofgem: wholesale energy costs and bills</a></li>
+          <li><a href="https://www.gov.uk/government/collections/review-of-electricity-market-arrangements-rema">UK government: Review of Electricity Market Arrangements</a></li>
+          <li><a href="https://www.gov.uk/government/publications/review-of-electricity-market-arrangements-rema-summer-update-2025/review-of-electricity-market-arrangements-rema-summer-update-2025-accessible-webpage">REMA Summer Update 2025</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
