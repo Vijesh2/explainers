@@ -10,25 +10,12 @@
     <main class="shell">
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-copy">
-          <p class="eyebrow">Worked example</p>
           <h1 id="page-title">Floating point numbers</h1>
           <p>
             This is a worked example showing how a floating point number is stored. This example uses a 32-bit float. Smaller 16-bit and 8-bit
             floats use the same idea: split the bits into sign, exponent, and
             fraction fields.
           </p>
-        </div>
-        <div class="float-card" aria-label="32-bit float field summary">
-          <div class="bit-band">
-            <span class="band-sign"></span>
-            <span class="band-exponent"></span>
-            <span class="band-fraction"></span>
-          </div>
-          <div class="field-labels">
-            <span>1 sign bit</span>
-            <span>8 exponent bits</span>
-            <span>23 fraction bits</span>
-          </div>
         </div>
       </section>
 
@@ -68,7 +55,7 @@
         </article>
       </section>
 
-      <section class="appendix" aria-labelledby="appendix-title">
+      <section class="appendix" id="appendix" aria-labelledby="appendix-title" hidden>
         <div class="section-heading">
           <p class="eyebrow">Appendix</p>
           <h2 id="appendix-title">Other float sizes</h2>

@@ -53,11 +53,9 @@ input {
 }
 
 .hero {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-  align-items: center;
-  gap: 28px;
-  min-height: clamp(260px, 40vh, 390px);
+  display: block;
+  min-height: clamp(220px, 32vh, 330px);
+  padding-top: 30px;
 }
 
 .hero > *,
@@ -91,7 +89,6 @@ input {
   text-transform: uppercase;
 }
 
-.float-card,
 .example-panel,
 .bit-explorer,
 .step-card,
@@ -102,38 +99,6 @@ input {
   border: 1px solid var(--line);
   border-radius: 8px;
   box-shadow: var(--shadow);
-}
-
-.float-card {
-  padding: 22px;
-  overflow: hidden;
-}
-
-.bit-band {
-  display: grid;
-  grid-template-columns: minmax(10px, 1fr) minmax(72px, 8fr) minmax(150px, 23fr);
-  gap: 6px;
-  height: 128px;
-  min-width: 0;
-}
-
-.bit-band span {
-  border-radius: 6px;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0)),
-    repeating-linear-gradient(90deg, transparent 0 13px, rgba(255, 255, 255, 0.42) 13px 15px);
-}
-
-.band-sign {
-  background-color: var(--sign);
-}
-
-.band-exponent {
-  background-color: var(--exponent);
-}
-
-.band-fraction {
-  background-color: var(--fraction);
 }
 
 .field-labels,
@@ -147,10 +112,6 @@ input {
 }
 
 .example-panel {
-  display: grid;
-  grid-template-columns: minmax(180px, auto) minmax(0, 1fr);
-  align-items: center;
-  gap: 18px;
   padding: 18px;
   margin-top: -8px;
 }
@@ -162,7 +123,6 @@ input {
 }
 
 .example-panel p:last-child {
-  max-width: 620px;
   margin: 0;
   color: var(--muted);
   line-height: 1.55;
@@ -422,6 +382,42 @@ input {
   white-space: normal;
 }
 
+.power-table {
+  width: min(100%, 320px);
+  margin: 10px 0 4px;
+  border-collapse: collapse;
+  color: var(--ink);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  text-align: center;
+}
+
+.power-table th,
+.power-table td {
+  width: 25%;
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+}
+
+.power-table th {
+  background: var(--exponent-soft);
+  color: #075f5c;
+  font-weight: 800;
+}
+
+.power-table td {
+  background: #fff;
+  font-weight: 800;
+}
+
+.power-caption {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 320px);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
 .inline-formula {
   background: #f2f5f1;
 }
@@ -429,6 +425,10 @@ input {
 .appendix {
   margin-top: 24px;
   padding: 20px;
+}
+
+.appendix[hidden] {
+  display: none;
 }
 
 .format-grid {
@@ -479,7 +479,6 @@ input {
 }
 
 @media (max-width: 860px) {
-  .hero,
   .example-panel,
   .sandbox,
   .lesson {
@@ -488,7 +487,6 @@ input {
 
   .hero {
     min-height: auto;
-    padding-top: 24px;
   }
 
   .step-tabs {
@@ -557,15 +555,6 @@ input {
 
   .bit small {
     font-size: 0.48rem;
-  }
-
-  .float-card {
-    padding: 16px;
-  }
-
-  .bit-band {
-    grid-template-columns: 0.8fr 4.4fr 6.2fr;
-    height: 128px;
   }
 
   .field-labels {

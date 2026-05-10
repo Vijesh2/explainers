@@ -4,6 +4,7 @@ const appendixInput = document.querySelector("#appendix-number-input");
 const appendixStoredDecimal = document.querySelector("#appendix-stored-decimal");
 const bitGrid = document.querySelector("#bit-grid");
 const appendixBitGrid = document.querySelector("#appendix-bit-grid");
+const appendix = document.querySelector("#appendix");
 const stepTabs = [...document.querySelectorAll("[data-step]")];
 const presetButtons = [...document.querySelectorAll("[data-preset]")];
 const stepCount = document.querySelector("#step-count");
@@ -111,6 +112,33 @@ function binaryPointMovement(exponent) {
   return `Move the binary point ${count} ${places} ${direction} so the number starts with one digit before the point.`;
 }
 
+function powerTable() {
+  return `
+    <table class="power-table">
+      <thead>
+        <tr>
+          <th scope="col">8</th>
+          <th scope="col">4</th>
+          <th scope="col">2</th>
+          <th scope="col">1</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="power-caption">
+      <span>Powers of two</span>
+      <span>Bits used</span>
+    </div>
+  `;
+}
+
 function htmlRows(rows) {
   return `
     <div class="work-box">
@@ -176,7 +204,7 @@ function stepContent(parts) {
             <p>Break 13 into powers of two:</p>
             <code>13 = 8 + 4 + 1</code>
             <p>Read the 8, 4, 2, 1 columns from left to right. Use <strong>1</strong> when that power is included and <strong>0</strong> when it is not.</p>
-            <code>8  4  2  1<br>1  1  0  1</code>
+            ${powerTable()}
             <p>So 13 becomes <strong>1101</strong>.</p>
           </div>
           <div class="note-box">
@@ -245,6 +273,7 @@ function renderStep(parts) {
     tab.classList.toggle("active", index === activeStep);
     tab.setAttribute("aria-current", index === activeStep ? "step" : "false");
   });
+  appendix.hidden = activeStep !== steps.length - 1;
 }
 
 function render() {
