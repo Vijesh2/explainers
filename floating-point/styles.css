@@ -427,7 +427,6 @@ input {
 }
 
 .appendix {
-  margin-top: 24px;
   padding: 20px;
 }
 
@@ -442,7 +441,7 @@ input {
   display: none;
 }
 
-.appendix-mode .appendix {
+.appendix-mode .lesson {
   margin-top: 0;
 }
 
