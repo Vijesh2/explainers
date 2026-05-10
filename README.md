@@ -1,5 +1,5 @@
 # explainers
-Explainers for topics benefit from explainers
+Explainers for topics that benefit from explainers
 
 ## Current explainers
 
