@@ -1,0 +1,558 @@
+:root {
+  color-scheme: light;
+  --ink: #17202a;
+  --muted: #596775;
+  --paper: #f7f8f3;
+  --panel: #ffffff;
+  --line: #d9dfda;
+  --sign: #d64545;
+  --sign-soft: #ffe6e2;
+  --exponent: #167f7d;
+  --exponent-soft: #dff4f0;
+  --fraction: #5b63b7;
+  --fraction-soft: #e9eaff;
+  --accent: #c76a29;
+  --shadow: 0 22px 70px rgba(36, 44, 51, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    linear-gradient(135deg, rgba(22, 127, 125, 0.12), transparent 38%),
+    linear-gradient(315deg, rgba(199, 106, 41, 0.12), transparent 40%),
+    var(--paper);
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+h1,
+h2,
+p,
+label,
+span,
+code {
+  overflow-wrap: anywhere;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.shell {
+  width: calc(100vw - 32px);
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 0 56px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  align-items: center;
+  gap: 28px;
+  min-height: clamp(260px, 40vh, 390px);
+}
+
+.hero > *,
+.example-panel > *,
+.lesson > * {
+  min-width: 0;
+}
+
+.hero-copy h1 {
+  max-width: 660px;
+  margin: 0;
+  font-size: clamp(2.2rem, 5.2vw, 4.7rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.hero-copy p:last-child {
+  max-width: 600px;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.24rem);
+  line-height: 1.55;
+}
+
+.eyebrow,
+.step-count {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.float-card,
+.example-panel,
+.bit-explorer,
+.step-card,
+.appendix,
+.sandbox {
+  max-width: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.float-card {
+  padding: 22px;
+  overflow: hidden;
+}
+
+.bit-band {
+  display: grid;
+  grid-template-columns: minmax(10px, 1fr) minmax(72px, 8fr) minmax(150px, 23fr);
+  gap: 6px;
+  height: 128px;
+  min-width: 0;
+}
+
+.bit-band span {
+  border-radius: 6px;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0)),
+    repeating-linear-gradient(90deg, transparent 0 13px, rgba(255, 255, 255, 0.42) 13px 15px);
+}
+
+.band-sign {
+  background-color: var(--sign);
+}
+
+.band-exponent {
+  background-color: var(--exponent);
+}
+
+.band-fraction {
+  background-color: var(--fraction);
+}
+
+.field-labels,
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.example-panel {
+  display: grid;
+  grid-template-columns: minmax(180px, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  margin-top: -8px;
+}
+
+.example-panel h2 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  line-height: 1;
+}
+
+.example-panel p:last-child {
+  max-width: 620px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.number-entry {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.number-entry input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #bec8c6;
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--ink);
+  background: #fff;
+  font-size: 1.08rem;
+}
+
+.number-entry input:focus {
+  outline: 3px solid rgba(22, 127, 125, 0.22);
+  border-color: var(--exponent);
+}
+
+.example-picker {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.preset-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.preset-row button,
+.step-tabs button {
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 10px;
+  background: #f7f9f6;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.preset-row button:hover,
+.step-tabs button:hover {
+  border-color: var(--accent);
+}
+
+.stored-value {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  color: var(--muted);
+}
+
+.stored-value strong {
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-size: 1.06rem;
+}
+
+.bit-explorer {
+  margin-top: 24px;
+  padding: 20px;
+}
+
+.section-heading {
+  margin-bottom: 16px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+.bit-grid {
+  display: grid;
+  grid-template-columns: repeat(32, minmax(18px, 1fr));
+  gap: 4px;
+}
+
+.bit {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1.18;
+  border: 1px solid rgba(23, 32, 42, 0.12);
+  border-radius: 5px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-weight: 800;
+  min-width: 0;
+}
+
+.bit small {
+  position: absolute;
+  bottom: 2px;
+  font-size: 0.52rem;
+  color: rgba(23, 32, 42, 0.62);
+}
+
+.bit.sign {
+  background: var(--sign-soft);
+  color: #9d2525;
+}
+
+.bit.exponent {
+  background: var(--exponent-soft);
+  color: #075f5c;
+}
+
+.bit.fraction {
+  background: var(--fraction-soft);
+  color: #313982;
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+}
+
+.sign-dot {
+  background: var(--sign);
+}
+
+.exponent-dot {
+  background: var(--exponent);
+}
+
+.fraction-dot {
+  background: var(--fraction);
+}
+
+.lesson {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.step-tabs {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.step-tabs button {
+  width: 52px;
+  padding: 0;
+}
+
+.step-tabs button.active {
+  background: var(--ink);
+  color: #fff;
+}
+
+.step-card {
+  min-height: 360px;
+  padding: clamp(18px, 3vw, 30px);
+}
+
+.step-card h2 {
+  margin: 0 0 14px;
+  font-size: clamp(1.5rem, 3vw, 2.35rem);
+}
+
+.step-card p,
+.step-card li {
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.62;
+}
+
+.step-card strong {
+  color: var(--ink);
+}
+
+.work-box {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.work-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfa;
+}
+
+.work-row span {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.work-row code,
+.inline-formula code {
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.note-box,
+.inline-formula {
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #f6f8f5;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.inline-formula {
+  background: #f2f5f1;
+}
+
+.appendix {
+  margin-top: 24px;
+  padding: 20px;
+}
+
+.format-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.format-grid article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: #fbfcfa;
+}
+
+.format-grid h3,
+.sandbox h3 {
+  margin: 0 0 8px;
+  font-size: 1.08rem;
+}
+
+.format-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.sandbox {
+  display: grid;
+  grid-template-columns: minmax(190px, 0.7fr) minmax(220px, 1fr) minmax(190px, auto);
+  gap: 16px;
+  align-items: end;
+  margin-top: 16px;
+  padding: 16px;
+  box-shadow: none;
+}
+
+.sandbox > .bit-grid {
+  grid-column: 1 / -1;
+}
+
+.warning {
+  margin-top: 16px;
+  border-left: 4px solid var(--accent);
+  padding: 10px 12px;
+  background: #fff4e9;
+  color: #724014;
+}
+
+@media (max-width: 860px) {
+  .hero,
+  .example-panel,
+  .sandbox,
+  .lesson {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 24px;
+  }
+
+  .step-tabs {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .bit-grid {
+    grid-template-columns: repeat(16, minmax(17px, 1fr));
+  }
+
+  .format-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .work-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .shell {
+    width: calc(100vw - 48px);
+    padding-top: 16px;
+  }
+
+  .hero-copy,
+  .example-panel p:last-child {
+    max-width: 100%;
+  }
+
+  .hero-copy p:last-child,
+  .example-panel p:last-child {
+    max-width: 30ch;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(1.95rem, 11vw, 2.65rem);
+    line-height: 1.05;
+  }
+
+  .hero-copy p:last-child {
+    font-size: 0.98rem;
+  }
+
+  .example-panel,
+  .bit-explorer,
+  .step-card,
+  .appendix,
+  .sandbox {
+    padding: 16px;
+  }
+
+  .bit-grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .bit {
+    aspect-ratio: 1 / 1;
+    font-size: 0.86rem;
+  }
+
+  .bit small {
+    font-size: 0.48rem;
+  }
+
+  .float-card {
+    padding: 16px;
+  }
+
+  .bit-band {
+    grid-template-columns: 0.8fr 4.4fr 6.2fr;
+    height: 128px;
+  }
+
+  .field-labels {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .preset-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .preset-row button {
+    width: 100%;
+    padding: 0 8px;
+  }
+}
