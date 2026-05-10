@@ -54,8 +54,9 @@ input {
 
 .hero {
   display: block;
-  min-height: clamp(220px, 32vh, 330px);
+  min-height: 0;
   padding-top: 30px;
+  padding-bottom: 22px;
 }
 
 .hero > *,
@@ -87,7 +88,6 @@ input {
   text-transform: uppercase;
 }
 
-.example-panel,
 .bit-explorer,
 .step-card {
   max-width: 100%;
@@ -108,8 +108,9 @@ input {
 }
 
 .example-panel {
-  padding: 18px;
-  margin-top: -8px;
+  border-top: 1px solid var(--line);
+  padding: 18px 0 0;
+  margin-top: 0;
 }
 
 .example-panel h2 {
@@ -121,6 +122,7 @@ input {
 .example-panel p:last-child {
   margin: 0;
   color: var(--muted);
+  font-size: 1.02rem;
   line-height: 1.55;
 }
 
