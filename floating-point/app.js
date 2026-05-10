@@ -238,7 +238,8 @@ function stepContent(parts) {
     {
       title: "Store the exponent",
       body: `
-        <p>The exponent records how far the binary point moved. Float32 does not store that number directly; it adds a fixed bias of 127 first, so negative and positive exponents can both fit in the same 8-bit field.</p>
+        <p>The exponent records how far the binary point moved. Float32 does not store that number directly; it adds a fixed bias of 127 first.</p>
+        <p>That bias makes room for negative exponents. For example, a tiny normalized number might have exponent <strong>-3</strong>; float32 would store <strong>-3 + 127 = 124</strong>. This worked example has exponent <strong>3</strong>, so it stores <strong>3 + 127 = 130</strong>.</p>
         ${htmlRows([
           ["Point movement", parts.classification === "normal" ? `${parts.unbiasedExponent}` : "reserved"],
           ["Add the bias", parts.classification === "normal" ? `${parts.unbiasedExponent} + 127 = ${parts.rawExponent}` : "reserved exponent pattern"],
@@ -254,8 +255,7 @@ function stepContent(parts) {
           ["Sign", parts.sign],
           ["Exponent", groupedBits(parts.exponentBits)],
           ["Fraction", groupedBits(parts.fractionBits)],
-          ["All 32 bits", groupedBits(parts.bits)],
-          ["Hex view", parts.hex]
+          ["All 32 bits", groupedBits(parts.bits)]
         ])}
         <div class="inline-formula"><code>value = (-1)^sign x 1.fraction x 2^(exponent - 127)</code></div>
         <p>The stored float32 value is <strong>${formatNumber(parts.rounded)}</strong>. If that differs from the decimal you typed, the nearest available 32-bit pattern was chosen.</p>

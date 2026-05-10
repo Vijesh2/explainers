@@ -274,14 +274,13 @@ input {
 
 .lesson {
   display: grid;
-  grid-template-columns: 160px minmax(0, 1fr);
+  grid-template-columns: 96px minmax(0, 1fr);
   gap: 18px;
   margin-top: 24px;
 }
 
 .step-tabs {
   display: grid;
-  grid-template-columns: 52px 88px;
   align-content: start;
   gap: 6px;
 }
