@@ -89,9 +89,7 @@ input {
 
 .example-panel,
 .bit-explorer,
-.step-card,
-.appendix,
-.sandbox {
+.step-card {
   max-width: 100%;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid var(--line);
@@ -126,44 +124,6 @@ input {
   line-height: 1.55;
 }
 
-.number-entry {
-  display: grid;
-  gap: 8px;
-  color: var(--muted);
-  font-weight: 700;
-}
-
-.number-entry input {
-  width: 100%;
-  min-width: 0;
-  border: 1px solid #bec8c6;
-  border-radius: 8px;
-  padding: 12px 14px;
-  color: var(--ink);
-  background: #fff;
-  font-size: 1.08rem;
-}
-
-.number-entry input:focus {
-  outline: 3px solid rgba(22, 127, 125, 0.22);
-  border-color: var(--exponent);
-}
-
-.example-picker {
-  display: grid;
-  gap: 8px;
-  color: var(--muted);
-  font-size: 0.86rem;
-  font-weight: 800;
-}
-
-.preset-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.preset-row button,
 .step-tabs button {
   min-height: 36px;
   border: 1px solid var(--line);
@@ -176,22 +136,8 @@ input {
   font-weight: 700;
 }
 
-.preset-row button:hover,
 .step-tabs button:hover {
   border-color: var(--accent);
-}
-
-.stored-value {
-  display: grid;
-  gap: 5px;
-  min-width: 0;
-  color: var(--muted);
-}
-
-.stored-value strong {
-  overflow-wrap: anywhere;
-  color: var(--ink);
-  font-size: 1.06rem;
 }
 
 .bit-explorer {
@@ -289,11 +235,6 @@ input {
   width: 52px;
   min-height: 34px;
   padding: 0;
-}
-
-.step-tabs .appendix-tab {
-  width: 88px;
-  padding: 0 10px;
 }
 
 .step-tabs button.active {
@@ -426,25 +367,6 @@ input {
   background: #f2f5f1;
 }
 
-.appendix {
-  padding: 20px;
-}
-
-.appendix[hidden] {
-  display: none;
-}
-
-.appendix-mode .hero,
-.appendix-mode .example-panel,
-.appendix-mode .bit-explorer,
-.appendix-mode .step-card {
-  display: none;
-}
-
-.appendix-mode .lesson {
-  margin-top: 0;
-}
-
 .format-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -459,7 +381,7 @@ input {
 }
 
 .format-grid h3,
-.sandbox h3 {
+.step-card h3 {
   margin: 0 0 8px;
   font-size: 1.08rem;
 }
@@ -468,20 +390,6 @@ input {
   margin: 0;
   color: var(--muted);
   line-height: 1.55;
-}
-
-.sandbox {
-  display: grid;
-  grid-template-columns: minmax(190px, 0.7fr) minmax(220px, 1fr) minmax(190px, auto);
-  gap: 16px;
-  align-items: end;
-  margin-top: 16px;
-  padding: 16px;
-  box-shadow: none;
-}
-
-.sandbox > .bit-grid {
-  grid-column: 1 / -1;
 }
 
 .warning {
@@ -494,7 +402,6 @@ input {
 
 @media (max-width: 860px) {
   .example-panel,
-  .sandbox,
   .lesson {
     grid-template-columns: 1fr;
   }
@@ -548,8 +455,7 @@ input {
   .example-panel,
   .bit-explorer,
   .step-card,
-  .appendix,
-  .sandbox {
+  .step-card {
     padding: 16px;
   }
 
@@ -572,13 +478,4 @@ input {
     gap: 6px;
   }
 
-  .preset-row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .preset-row button {
-    width: 100%;
-    padding: 0 8px;
-  }
 }

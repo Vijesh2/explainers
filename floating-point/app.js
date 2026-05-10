@@ -1,13 +1,7 @@
 const WORKED_EXAMPLE = 13.625;
 
-const appendixInput = document.querySelector("#appendix-number-input");
-const appendixStoredDecimal = document.querySelector("#appendix-stored-decimal");
 const bitGrid = document.querySelector("#bit-grid");
-const appendixBitGrid = document.querySelector("#appendix-bit-grid");
-const appendix = document.querySelector("#appendix");
 const stepTabs = [...document.querySelectorAll("[data-step]")];
-const appendixTab = document.querySelector("#appendix-tab");
-const presetButtons = [...document.querySelectorAll("[data-preset]")];
 const stepCount = document.querySelector("#step-count");
 const stepTitle = document.querySelector("#step-title");
 const stepBody = document.querySelector("#step-body");
@@ -260,6 +254,29 @@ function stepContent(parts) {
         <div class="inline-formula"><code>value = (-1)^sign x 1.fraction x 2^(exponent - 127)</code></div>
         <p>The stored float32 value is <strong>${formatNumber(parts.rounded)}</strong>. If that differs from the decimal you typed, the nearest available 32-bit pattern was chosen.</p>
       `
+    },
+    {
+      title: "Other float sizes",
+      body: `
+        <p>The worked example used a 32-bit float, but the same basic layout appears in smaller floating point formats: one sign field, one exponent field, and one fraction field.</p>
+        <div class="format-grid" aria-label="Floating point field definitions">
+          <article>
+            <h3>32-bit float</h3>
+            <p>1 sign bit, 8 exponent bits, 23 fraction bits. This is the format used in the worked example.</p>
+          </article>
+          <article>
+            <h3>16-bit float</h3>
+            <p>1 sign bit, 5 exponent bits, 10 fraction bits. This is commonly called half precision.</p>
+          </article>
+          <article>
+            <h3>8-bit float</h3>
+            <p>There is no single universal 8-bit float. A common teaching format is 1 sign bit, 4 exponent bits, and 3 fraction bits.</p>
+          </article>
+        </div>
+        <div class="note-box">
+          Fewer exponent bits reduce the range of values. Fewer fraction bits reduce the precision. The tradeoff is that smaller formats take less memory and can be faster for some workloads.
+        </div>
+      `
     }
   ];
 }
@@ -282,37 +299,11 @@ function render() {
   renderStep(parts);
 }
 
-function renderAppendix() {
-  const parts = float32Parts(Number(appendixInput.value));
-  appendixStoredDecimal.textContent = formatNumber(parts.rounded);
-  renderBitGrid(appendixBitGrid, parts);
-}
-
-appendixInput.addEventListener("input", renderAppendix);
-
-presetButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    appendixInput.value = button.dataset.preset;
-    renderAppendix();
-  });
-});
-
 stepTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
-    document.body.classList.remove("appendix-mode");
-    appendix.hidden = true;
     activeStep = Number(tab.dataset.step);
     render();
   });
 });
 
-appendixTab.addEventListener("click", () => {
-  activeStep = stepContent(float32Parts(WORKED_EXAMPLE)).length - 1;
-  render();
-  document.body.classList.add("appendix-mode");
-  appendix.hidden = false;
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
 render();
-renderAppendix();
