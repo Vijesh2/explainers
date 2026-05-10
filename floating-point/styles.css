@@ -46,7 +46,7 @@ input {
 }
 
 .shell {
-  width: calc(100% - 32px);
+  width: calc(100vw - 32px);
   max-width: 1120px;
   margin: 0 auto;
   padding: 32px 0 56px;
@@ -54,14 +54,14 @@ input {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   align-items: center;
   gap: 28px;
   min-height: clamp(260px, 40vh, 390px);
 }
 
 .hero > *,
-.control-panel > *,
+.example-panel > *,
 .lesson > * {
   min-width: 0;
 }
@@ -92,9 +92,11 @@ input {
 }
 
 .float-card,
-.control-panel,
+.example-panel,
 .bit-explorer,
-.step-card {
+.step-card,
+.appendix,
+.sandbox {
   max-width: 100%;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid var(--line);
@@ -144,13 +146,26 @@ input {
   font-size: 0.92rem;
 }
 
-.control-panel {
+.example-panel {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) auto minmax(190px, auto);
-  align-items: end;
+  grid-template-columns: minmax(180px, auto) minmax(0, 1fr);
+  align-items: center;
   gap: 18px;
   padding: 18px;
   margin-top: -8px;
+}
+
+.example-panel h2 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  line-height: 1;
+}
+
+.example-panel p:last-child {
+  max-width: 620px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
 }
 
 .number-entry {
@@ -387,6 +402,50 @@ input {
   background: #f2f5f1;
 }
 
+.appendix {
+  margin-top: 24px;
+  padding: 20px;
+}
+
+.format-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.format-grid article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: #fbfcfa;
+}
+
+.format-grid h3,
+.sandbox h3 {
+  margin: 0 0 8px;
+  font-size: 1.08rem;
+}
+
+.format-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.sandbox {
+  display: grid;
+  grid-template-columns: minmax(190px, 0.7fr) minmax(220px, 1fr) minmax(190px, auto);
+  gap: 16px;
+  align-items: end;
+  margin-top: 16px;
+  padding: 16px;
+  box-shadow: none;
+}
+
+.sandbox > .bit-grid {
+  grid-column: 1 / -1;
+}
+
 .warning {
   margin-top: 16px;
   border-left: 4px solid var(--accent);
@@ -397,7 +456,8 @@ input {
 
 @media (max-width: 860px) {
   .hero,
-  .control-panel,
+  .example-panel,
+  .sandbox,
   .lesson {
     grid-template-columns: 1fr;
   }
@@ -416,6 +476,10 @@ input {
     grid-template-columns: repeat(16, minmax(17px, 1fr));
   }
 
+  .format-grid {
+    grid-template-columns: 1fr;
+  }
+
   .work-row {
     grid-template-columns: 1fr;
   }
@@ -423,8 +487,18 @@ input {
 
 @media (max-width: 520px) {
   .shell {
-    width: calc(100vw - 32px);
+    width: calc(100vw - 48px);
     padding-top: 16px;
+  }
+
+  .hero-copy,
+  .example-panel p:last-child {
+    max-width: 100%;
+  }
+
+  .hero-copy p:last-child,
+  .example-panel p:last-child {
+    max-width: 30ch;
   }
 
   .hero-copy h1 {
@@ -436,9 +510,11 @@ input {
     font-size: 0.98rem;
   }
 
-  .control-panel,
+  .example-panel,
   .bit-explorer,
-  .step-card {
+  .step-card,
+  .appendix,
+  .sandbox {
     padding: 16px;
   }
 
@@ -460,7 +536,7 @@ input {
   }
 
   .bit-band {
-    grid-template-columns: 0.8fr 4.6fr 6.8fr;
+    grid-template-columns: 0.8fr 4.4fr 6.2fr;
     height: 128px;
   }
 

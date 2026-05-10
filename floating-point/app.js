@@ -1,6 +1,9 @@
-const input = document.querySelector("#number-input");
-const storedDecimal = document.querySelector("#stored-decimal");
+const WORKED_EXAMPLE = 13.625;
+
+const appendixInput = document.querySelector("#appendix-number-input");
+const appendixStoredDecimal = document.querySelector("#appendix-stored-decimal");
 const bitGrid = document.querySelector("#bit-grid");
+const appendixBitGrid = document.querySelector("#appendix-bit-grid");
 const stepTabs = [...document.querySelectorAll("[data-step]")];
 const presetButtons = [...document.querySelectorAll("[data-preset]")];
 const stepCount = document.querySelector("#step-count");
@@ -122,14 +125,18 @@ function htmlRows(rows) {
 }
 
 function renderBits(parts) {
-  bitGrid.innerHTML = "";
+  renderBitGrid(bitGrid, parts);
+}
+
+function renderBitGrid(target, parts) {
+  target.innerHTML = "";
   [...parts.bits].forEach((bit, index) => {
     const cell = document.createElement("div");
     const field = index === 0 ? "sign" : index < 9 ? "exponent" : "fraction";
     cell.className = `bit ${field}`;
     cell.title = `bit ${index}: ${field}`;
     cell.innerHTML = `${bit}<small>${index}</small>`;
-    bitGrid.appendChild(cell);
+    target.appendChild(cell);
   });
 }
 
@@ -226,19 +233,23 @@ function renderStep(parts) {
 }
 
 function render() {
-  const value = Number(input.value);
-  const parts = float32Parts(value);
-  storedDecimal.textContent = formatNumber(parts.rounded);
+  const parts = float32Parts(WORKED_EXAMPLE);
   renderBits(parts);
   renderStep(parts);
 }
 
-input.addEventListener("input", render);
+function renderAppendix() {
+  const parts = float32Parts(Number(appendixInput.value));
+  appendixStoredDecimal.textContent = formatNumber(parts.rounded);
+  renderBitGrid(appendixBitGrid, parts);
+}
+
+appendixInput.addEventListener("input", renderAppendix);
 
 presetButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    input.value = button.dataset.preset;
-    render();
+    appendixInput.value = button.dataset.preset;
+    renderAppendix();
   });
 });
 
@@ -250,3 +261,4 @@ stepTabs.forEach((tab) => {
 });
 
 render();
+renderAppendix();
