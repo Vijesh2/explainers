@@ -274,7 +274,6 @@ function renderStep(parts) {
     tab.classList.toggle("active", index === activeStep);
     tab.setAttribute("aria-current", index === activeStep ? "step" : "false");
   });
-  appendix.hidden = activeStep !== steps.length - 1;
 }
 
 function render() {
@@ -308,6 +307,7 @@ stepTabs.forEach((tab) => {
 appendixTab.addEventListener("click", () => {
   activeStep = stepContent(float32Parts(WORKED_EXAMPLE)).length - 1;
   render();
+  appendix.hidden = false;
   appendix.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
