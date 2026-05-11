@@ -140,6 +140,7 @@ input {
 .bridge,
 .alternatives,
 .synthesis,
+.flex-targets,
 .sources {
   margin-top: 24px;
   border: 1px solid var(--line);
@@ -163,6 +164,7 @@ input {
 .model,
 .alternatives,
 .synthesis,
+.flex-targets,
 .sources {
   padding: clamp(18px, 3vw, 28px);
 }
@@ -525,6 +527,61 @@ input {
   background: #fbfcfa;
 }
 
+.target-intro {
+  max-width: 900px;
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.62;
+}
+
+.target-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.target-grid article,
+.deep-flex {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: #fbfcfa;
+}
+
+.target-grid span {
+  display: inline-block;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
+.target-grid h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+}
+
+.target-grid p,
+.deep-flex p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.deep-flex {
+  margin-top: 12px;
+  border-left: 4px solid var(--accent);
+}
+
+.deep-flex strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
 .sources {
   box-shadow: none;
 }
@@ -548,7 +605,8 @@ input {
   .model-grid,
   .step-grid,
   .tradeoff-grid,
-  .synthesis-grid {
+  .synthesis-grid,
+  .target-grid {
     grid-template-columns: 1fr;
   }
 
