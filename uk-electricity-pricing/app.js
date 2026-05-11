@@ -51,12 +51,22 @@ const alternatives = {
   },
   split: {
     title: "Separate gas and low-carbon markets",
-    intro: "Low-carbon generators and gas generators would be paid through different market arrangements.",
+    intro: "Low-carbon generators and gas generators would be paid through different financial arrangements, even though their electricity still flows through one physical grid.",
     tradeoffs: [
-      ["What it changes", "Renewables and nuclear could be insulated from gas-set wholesale prices more directly."],
-      ["Why it sounds attractive", "It targets the central complaint: cheap low-carbon power should not always be priced as if it came from gas."],
-      ["What could go wrong", "The boundary between markets becomes difficult. The system still needs backup, flexibility, and rules for who pays when low-carbon output is not enough."],
-      ["When it might help", "Long-term contracts already do part of this job. A broader split would need careful design to avoid shifting hidden costs elsewhere."]
+      ["What it changes", "Renewables, nuclear, or other low-carbon sources could be insulated from gas-set wholesale prices more directly, while gas and flexible backup are paid through a separate route."],
+      ["Why it sounds attractive", "It targets the central complaint: cheap low-carbon power should not always be priced as if it came from gas, especially when gas is only needed for the final slice of demand."],
+      [
+        "What could go wrong",
+        "Splitting the financial market does not split the physics. The grid still has to balance supply and demand every second. If demand rises at 6pm and wind output falls, gas, storage, imports, or demand reduction may still be needed. The design then has to answer hard questions: who pays backup plants to be available, who pays them when they run, how are those costs shared, and what stops costs being hidden in levies, capacity payments, balancing charges, or supplier obligations?"
+      ],
+      [
+        "When it might help",
+        "A split can help when the goal is to give consumers more stable access to low-carbon power prices while separately paying for reliability. The UK already does a partial version through long-term contracts such as Contracts for Difference. A wind farm may sell into the wholesale market, but a fixed strike price means it receives a top-up when market prices are low and pays back the difference when market prices are high. That makes its revenue less dependent on live gas-set prices."
+      ],
+      [
+        "CfD example",
+        "If a renewable generator has a £70/MWh strike price and the wholesale price is £50/MWh, it receives a £20/MWh top-up. If the wholesale price is £120/MWh, it pays back £50/MWh. Physically, the power still enters the same grid. Financially, the generator is partly insulated from wholesale volatility, and consumers can benefit when gas-driven prices rise above the strike price."
+      ]
     ]
   },
   cap: {
