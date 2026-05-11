@@ -39,8 +39,14 @@ const alternatives = {
     tradeoffs: [
       ["What it changes", "The visible price would be less dominated by the marginal generator in each settlement period."],
       ["Why it sounds attractive", "Bills could look more connected to the full generation mix, especially when low-carbon power is abundant."],
-      ["What could go wrong", "Average prices can hide scarcity. If the system is tight, somebody still needs a reason to provide flexible supply or reduce demand."],
-      ["When it might help", "It can be useful through regulated or contracted routes, but the system still needs real-time balancing incentives."]
+      [
+        "What could go wrong",
+        "Average-cost pricing can make the bill look calmer while the physical system is still under pressure. If lots of wind and nuclear are running but the system still needs some £150/MWh gas, the average price may be far below the cost of that final flexible supply. That lower blended price can hide the scarcity signal that tells batteries to discharge, flexible generators to run, large users to reduce demand, or investors to build more flexibility."
+      ],
+      [
+        "When it might help",
+        "Average-cost pricing can be useful for bill stability when it sits inside regulated or contracted arrangements: long-term generator contracts, fixed-price low-carbon support, or supplier portfolios bought at blended prices. But it cannot remove the need for a real-time balancing mechanism. The system still has to decide who provides extra power on a cold, still evening, who is paid to reduce demand, and how backup plants or storage recover their costs."
+      ]
     ]
   },
   split: {
