@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How the UK gilt market works</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">UK public finance</p>
+          <h1 id="page-title">How the gilt market works</h1>
+          <p>
+            Start with one bond: coupons, price, yield, and maturity. Then zoom out
+            to the UK government bond market, where gilt yields shape the cost of
+            funding public spending.
+          </p>
+        </div>
+        <div class="market-tape" aria-hidden="true">
+          <span>coupon</span>
+          <span>price</span>
+          <span>yield</span>
+          <span>issuance</span>
+          <span>debt interest</span>
+        </div>
+      </section>
+
+      <section class="intro-panel" aria-label="Central idea">
+        <p>
+          A gilt is a sterling liability of the UK government. Investors lend money
+          today, receive scheduled payments, and expect the principal back at
+          maturity. The market price of those promises moves every day, and the
+          yield implied by that price becomes a benchmark for the government's cost
+          of borrowing.
+        </p>
+      </section>
+
+      <section class="bond-lab" aria-labelledby="bond-title">
+        <div class="section-heading">
+          <p class="eyebrow">Interactive bond lab</p>
+          <h2 id="bond-title">A gilt is a stream of cash flows</h2>
+        </div>
+
+        <div class="lab-grid">
+          <form class="controls" aria-label="Bond assumptions">
+            <label>
+              <span>Coupon rate</span>
+              <input id="coupon-input" type="range" min="0" max="8" step="0.25" value="3.5">
+            </label>
+            <label>
+              <span>Market price per £100</span>
+              <input id="price-input" type="range" min="55" max="135" step="1" value="100">
+            </label>
+            <label>
+              <span>Years to maturity</span>
+              <input id="maturity-input" type="range" min="2" max="40" step="1" value="10">
+            </label>
+          </form>
+
+          <div class="readout" aria-live="polite">
+            <div>
+              <span>Annual coupon</span>
+              <strong id="coupon-readout">£3.50</strong>
+            </div>
+            <div>
+              <span>Approx. yield</span>
+              <strong id="yield-readout">3.5%</strong>
+            </div>
+            <div>
+              <span>Capital gain/loss</span>
+              <strong id="capital-readout">£0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="cashflow" aria-label="Illustrative cash flow timeline">
+          <div class="cashflow-track" id="cashflow-track"></div>
+        </div>
+        <p class="model-summary" id="bond-summary">
+          At £100, the approximate yield is close to the coupon because there is no
+          capital gain or loss at maturity.
+        </p>
+      </section>
+
+      <section class="lesson" aria-labelledby="mechanism-title">
+        <div class="section-heading">
+          <p class="eyebrow">Mechanism</p>
+          <h2 id="mechanism-title">Price and yield move in opposite directions</h2>
+        </div>
+
+        <div class="step-grid">
+          <article>
+            <span>1</span>
+            <h3>The coupon is set when the gilt is issued</h3>
+            <p>
+              A 3.5% conventional gilt pays £3.50 a year for every £100 of nominal
+              value, normally in two half-yearly payments.
+            </p>
+          </article>
+          <article>
+            <span>2</span>
+            <h3>The price changes in the secondary market</h3>
+            <p>
+              If investors require a higher return, they pay less for the same
+              fixed cash flows. That lower price pushes the yield up.
+            </p>
+          </article>
+          <article>
+            <span>3</span>
+            <h3>New borrowing reflects market yields</h3>
+            <p>
+              The DMO sells new gilts through auctions and syndications. Higher
+              market yields mean the government must offer investors a higher
+              expected return on new or refinanced debt.
+            </p>
+          </article>
+          <article>
+            <span>4</span>
+            <h3>Index-linked gilts add inflation exposure</h3>
+            <p>
+              Index-linked gilts adjust coupons and principal with RPI, so inflation
+              shocks can move debt interest costs faster than with fixed coupons.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="market-map" aria-labelledby="market-title">
+        <div class="section-heading">
+          <p class="eyebrow">From bond to market</p>
+          <h2 id="market-title">How annual borrowing becomes gilt supply</h2>
+        </div>
+
+        <div class="flow-grid">
+          <article>
+            <strong>1. Cash need</strong>
+            <p>
+              The government must finance new cash borrowing and refinance maturing
+              gilts. For 2026-27 the Debt Management Report put the gross financing
+              requirement at £273.4bn.
+            </p>
+          </article>
+          <article>
+            <strong>2. Financing plan</strong>
+            <p>
+              NS&I, Treasury bills, and other items cover part of the need. The DMO
+              planned £252.1bn of gilt sales for debt financing in 2026-27.
+            </p>
+          </article>
+          <article>
+            <strong>3. Maturity mix</strong>
+            <p>
+              Issuance is split across short, medium, long, index-linked, and
+              unallocated gilts to balance cost, refinancing risk, demand, and
+              market liquidity.
+            </p>
+          </article>
+        </div>
+
+        <div class="issuance-chart" aria-label="Planned 2026-27 gilt issuance mix">
+          <div style="--w: 38.6%; --c: var(--short);">
+            <span>Short conventional</span>
+            <strong>38.6%</strong>
+          </div>
+          <div style="--w: 30.9%; --c: var(--medium);">
+            <span>Medium conventional</span>
+            <strong>30.9%</strong>
+          </div>
+          <div style="--w: 9.1%; --c: var(--long);">
+            <span>Long conventional</span>
+            <strong>9.1%</strong>
+          </div>
+          <div style="--w: 9.3%; --c: var(--linked);">
+            <span>Index-linked</span>
+            <strong>9.3%</strong>
+          </div>
+          <div style="--w: 12.1%; --c: var(--unallocated);">
+            <span>Unallocated</span>
+            <strong>12.1%</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="scale" aria-labelledby="scale-title">
+        <div class="section-heading">
+          <p class="eyebrow">Scale</p>
+          <h2 id="scale-title">The market is measured in trillions</h2>
+        </div>
+
+        <div class="scale-grid">
+          <div class="big-number">
+            <span>Wholesale debt portfolio</span>
+            <strong>about £2.73tn</strong>
+            <p>
+              The DMR says index-linked debt was £688.5bn at end-December 2025,
+              equal to 25.2% of the wholesale debt portfolio.
+            </p>
+          </div>
+          <div class="big-number">
+            <span>Index-linked share</span>
+            <strong>25.2%</strong>
+            <p>
+              That large inflation-linked share is why RPI surprises can show up
+              quickly in measured debt interest.
+            </p>
+          </div>
+          <div class="big-number">
+            <span>APF gilt holdings</span>
+            <strong>£373.3bn</strong>
+            <p>
+              The Bank of England's Asset Purchase Facility still held that amount
+              of gilts at end-January 2026 after quantitative tightening.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="spending-lab" aria-labelledby="spending-title">
+        <div class="section-heading">
+          <p class="eyebrow">Interactive spending lab</p>
+          <h2 id="spending-title">Debt interest as a share of spending</h2>
+        </div>
+
+        <div class="lab-grid">
+          <form class="controls" aria-label="Spending assumptions">
+            <label>
+              <span>Debt interest spending</span>
+              <input id="interest-input" type="range" min="70" max="160" step="1" value="110">
+            </label>
+            <label>
+              <span>Total managed expenditure</span>
+              <input id="spending-input" type="range" min="1100" max="1700" step="5" value="1368">
+            </label>
+            <label>
+              <span>Yield shock on £252bn new gilts</span>
+              <input id="shock-input" type="range" min="-1" max="2" step="0.25" value="0">
+            </label>
+          </form>
+
+          <div class="readout" aria-live="polite">
+            <div>
+              <span>Interest share</span>
+              <strong id="share-readout">8.0%</strong>
+            </div>
+            <div>
+              <span>Annual shock</span>
+              <strong id="shock-readout">£0.0bn</strong>
+            </div>
+            <div>
+              <span>OBR 2025-26 baseline</span>
+              <strong>£109.7bn / £1,368bn</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="donut-wrap">
+          <div class="donut" id="spending-donut" aria-hidden="true"></div>
+          <div class="donut-caption">
+            <strong id="donut-number">8.0%</strong>
+            <span>of total managed expenditure</span>
+          </div>
+        </div>
+        <p class="model-summary" id="spending-summary">
+          In the OBR March 2026 forecast, central government debt interest net of
+          APF was about 8.0% of total managed expenditure in 2025-26.
+        </p>
+      </section>
+
+      <section class="sources" aria-labelledby="sources-title">
+        <div class="section-heading">
+          <p class="eyebrow">Sources</p>
+          <h2 id="sources-title">Primary references</h2>
+        </div>
+        <ul>
+          <li><a href="https://www.dmo.gov.uk/responsibilities/gilt-market/about-gilts/">UK Debt Management Office: About gilts</a></li>
+          <li><a href="https://www.gov.uk/government/publications/debt-management-report-2026-27/debt-management-report-2026-27">HM Treasury: Debt Management Report 2026-27</a></li>
+          <li><a href="https://obr.uk/economic-and-fiscal-outlooks/">Office for Budget Responsibility: March 2026 Economic and fiscal outlook</a></li>
+          <li><a href="https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/methodologies/thecalculationofinterestpayableongovernmentgilts">ONS: The calculation of interest payable on government gilts</a></li>
+        </ul>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
