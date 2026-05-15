@@ -8,3 +8,4 @@ Explainers for topics that benefit from explainers
 - [How the UK gilt market works](uk-gilt-market/)
 - [UK-linked frontier tech to watch](uk-frontier-tech-companies/)
 - [Archway Campus](archway-campus/)
+- [How work can pay again](an-honest-day-growth/)
