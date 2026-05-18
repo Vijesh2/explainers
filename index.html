@@ -108,29 +108,27 @@
 
       .link-section {
         margin-top: 44px;
-        padding-top: 28px;
+        padding-top: 18px;
         border-top: 1px solid var(--line);
       }
 
-      .section-heading {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(220px, 340px);
-        gap: 24px;
-        align-items: end;
-        margin-bottom: 16px;
-      }
-
-      .section-heading h2 {
-        margin: 0;
-        font-size: clamp(2rem, 4vw, 3.5rem);
-        line-height: 1;
-        letter-spacing: 0;
-      }
-
-      .section-heading p:last-child {
-        margin: 0;
+      .links-inline {
         color: var(--muted);
-        line-height: 1.55;
+        font-size: 0.95rem;
+        line-height: 1.45;
+      }
+
+      .links-inline a {
+        color: var(--ink);
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .links-inline a:hover,
+      .links-inline a:focus-visible {
+        color: var(--accent);
+        outline: none;
+        text-decoration: underline;
       }
 
       .explainer-card {
@@ -209,8 +207,7 @@
         }
 
         .hero,
-        .explainer-card,
-        .section-heading {
+        .explainer-card {
           grid-template-columns: 1fr;
         }
 
@@ -379,33 +376,10 @@
       </section>
 
       <section class="link-section" aria-labelledby="links-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Useful links</p>
-            <h2 id="links-title">Some useful links</h2>
-          </div>
-          <p>
-            References, tools, essays, datasets, and pages that are useful even
-            when they are not explainers.
-          </p>
-        </div>
-
-        <a class="explainer-card" href="links/">
-          <div>
-            <p class="eyebrow">Notebook</p>
-            <h2>Useful links</h2>
-            <p>
-              Things worth returning to: useful tools, civic references, small web
-              projects, and other pages that help make sense of the world.
-            </p>
-            <div class="meta" aria-label="Collection details">
-              <span>Annotated</span>
-              <span>Open-ended</span>
-              <span>References</span>
-            </div>
-          </div>
-          <span class="arrow" aria-hidden="true">-></span>
-        </a>
+        <p class="links-inline" id="links-title">
+          Also: <a href="links/">useful links</a> for references, tools, essays,
+          datasets, and small web projects.
+        </p>
       </section>
     </main>
   </body>
