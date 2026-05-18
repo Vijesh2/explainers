@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How to build a UK gilt yield curve</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">UK gilt pricing</p>
+          <h1 id="page-title">How to build<br>a yield curve</h1>
+          <p>
+            This explainer shows how to build a yield curve from market prices of
+            gilts: move from quoted clean prices to dirty settlement prices, solve
+            each gilt's yield, then line those yields up by maturity.
+          </p>
+        </div>
+      </section>
+
+      <section class="idea-band" aria-label="Central idea">
+        <p>
+          The market quotes gilts clean so the price does not jump every day as
+          coupon interest accrues. The buyer pays dirty: clean price plus accrued
+          interest. Yield curve construction starts from that dirty price because
+          discounted cash-flow maths needs the full cash settlement amount. The
+          worked example below uses a Tradeweb FTSE UK Gilt Closing Prices snapshot
+          for conventional gilts, close of business 15 May 2026, with prices shown
+          per £100 nominal.
+        </p>
+      </section>
+
+      <section class="price-lab" aria-labelledby="clean-dirty-title">
+        <div class="section-heading">
+          <p class="eyebrow">Step 1</p>
+          <h2 id="clean-dirty-title">Clean price is the quote. Dirty price is the cash settlement.</h2>
+        </div>
+
+        <div class="lab-grid">
+          <label class="selector">
+            <span>Choose a gilt from the Tradeweb snapshot</span>
+            <select id="gilt-select"></select>
+          </label>
+
+          <div class="formula" aria-live="polite">
+            <div>
+              <span>Clean price</span>
+              <strong id="clean-readout">99.58</strong>
+            </div>
+            <b>+</b>
+            <div>
+              <span>Accrued interest</span>
+              <strong id="accrued-readout">0.48</strong>
+              <small id="accrued-signpost">Derived below from coupon days</small>
+            </div>
+            <b>=</b>
+            <div>
+              <span>Dirty price</span>
+              <strong id="dirty-readout">100.06</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="bond-card" aria-live="polite">
+          <div>
+            <span>Settlement</span>
+            <strong id="settlement-readout">18 May 2026</strong>
+          </div>
+          <div>
+            <span>Maturity</span>
+            <strong id="maturity-readout">22 Jul 2026</strong>
+          </div>
+          <div>
+            <span>Coupon</span>
+            <strong id="coupon-readout">1.50%</strong>
+          </div>
+          <div>
+            <span>Tradeweb yield</span>
+            <strong id="yield-readout">3.86%</strong>
+          </div>
+          <div>
+            <span>Approx. solved yield</span>
+            <strong id="solved-readout">3.82%</strong>
+          </div>
+        </div>
+
+        <div class="date-explainer">
+          <article>
+            <h3>Settlement date</h3>
+            <p id="settlement-copy">
+              The date the buyer pays cash and the gilt changes hands. Accrued
+              interest is measured up to this date.
+            </p>
+          </article>
+          <article>
+            <h3>Maturity date</h3>
+            <p id="maturity-copy">
+              The date the final coupon and £100 principal are paid. Yield is
+              solved over the time from settlement to this date.
+            </p>
+          </article>
+        </div>
+
+        <div class="accrual-work" aria-live="polite">
+          <div class="work-head">
+            <span>Accrued-interest derivation</span>
+            <strong id="accrual-rule-readout">Cum-dividend: buyer compensates seller</strong>
+          </div>
+          <div class="work-grid">
+            <div>
+              <span>Semi-annual coupon</span>
+              <strong id="period-coupon-readout">0.750000</strong>
+            </div>
+            <b>x</b>
+            <div>
+              <span>Accrual days</span>
+              <strong id="accrual-days-readout">117</strong>
+              <small id="accrual-days-detail">22 Jan to 18 May</small>
+            </div>
+            <b>/</b>
+            <div>
+              <span>Coupon-period days</span>
+              <strong id="period-days-readout">182</strong>
+              <small id="period-days-detail">22 Jan to 22 Jul</small>
+              <small id="period-days-count">Actual days between coupon dates</small>
+            </div>
+            <b>=</b>
+            <div>
+              <span>Accrued interest</span>
+              <strong id="derived-accrued-readout">0.480663</strong>
+            </div>
+          </div>
+          <p id="accrual-explanation">
+            The settlement date is between coupon dates, so the buyer pays the
+            seller for the fraction of the next coupon already earned.
+          </p>
+        </div>
+
+        <div class="yield-work" aria-live="polite">
+          <div class="work-head">
+            <span>Yield solve</span>
+            <strong id="yield-rule-readout">Find the discount rate that prices the cash flows</strong>
+          </div>
+          <p class="equation" id="yield-equation">
+            Dirty price = Σ cash flow ÷ (1 + yield/2)<sup>2 × years from settlement</sup>
+          </p>
+          <div class="solve-grid">
+            <div>
+              <span>Target dirty price</span>
+              <strong id="target-price-readout">100.061663</strong>
+            </div>
+            <div>
+              <span>Remaining cash flows</span>
+              <strong id="cashflow-count-readout">1</strong>
+            </div>
+            <div>
+              <span>Final cash flow</span>
+              <strong id="final-flow-readout">£100.750</strong>
+            </div>
+            <div>
+              <span>Present value at solved yield</span>
+              <strong id="solved-pv-readout">100.061663</strong>
+            </div>
+          </div>
+          <div class="trial-grid">
+            <div>
+              <span id="low-yield-label">At 3.390%</span>
+              <strong id="low-pv-readout">100.151</strong>
+              <p id="low-pv-copy">PV is above the dirty price, so the trial yield is too low.</p>
+            </div>
+            <div>
+              <span id="high-yield-label">At 4.390%</span>
+              <strong id="high-pv-readout">99.972</strong>
+              <p id="high-pv-copy">PV is below the dirty price, so the trial yield is too high.</p>
+            </div>
+          </div>
+          <p id="yield-explanation">
+            The solver narrows the yield between those two cases until present
+            value and dirty price are effectively the same.
+          </p>
+        </div>
+      </section>
+
+      <section class="calendar-lab" aria-labelledby="calendar-title">
+        <div class="section-heading">
+          <p class="eyebrow">Step 2</p>
+          <h2 id="calendar-title">Build the coupon calendar before solving yield</h2>
+        </div>
+        <div class="calendar-grid">
+          <div class="calendar-card">
+            <span>Previous coupon date</span>
+            <strong id="previous-coupon-readout">22 Jan 2026</strong>
+            <p>The start of the current coupon accrual period.</p>
+          </div>
+          <div class="calendar-card">
+            <span>Ex-dividend date</span>
+            <strong id="exdiv-readout">13 Jul 2026</strong>
+            <p>Seven business days before the next payment date.</p>
+          </div>
+          <div class="calendar-card">
+            <span>Next coupon date</span>
+            <strong id="next-coupon-readout">22 Jul 2026</strong>
+            <p>The upcoming cash-flow date in the schedule.</p>
+          </div>
+          <div class="calendar-card">
+            <span>Accrual status</span>
+            <strong id="status-readout">Cum-dividend</strong>
+            <p id="status-copy">The buyer pays accrued interest to the seller.</p>
+          </div>
+        </div>
+        <div class="calendar-strip" id="coupon-strip" aria-label="Remaining coupon calendar"></div>
+      </section>
+
+      <section class="conventions" aria-labelledby="conventions-title">
+        <div class="section-heading">
+          <p class="eyebrow">Step 3</p>
+          <h2 id="conventions-title">Apply day count, ex-dividend, and settlement rules</h2>
+        </div>
+        <div class="convention-grid">
+          <article>
+            <h3>Settlement date</h3>
+            <p>
+              Normal gilt-market settlement is T+1. The 15 May 2026 close was a
+              Friday, so the next business day settlement date is 18 May 2026.
+              Accrued interest and ex-dividend entitlement are based on settlement
+              date, not the trade date.
+            </p>
+          </article>
+          <article>
+            <h3>ACT/ACT accrued interest</h3>
+            <p>
+              For a conventional gilt outside the ex-dividend period, accrued
+              interest equals the next semi-annual coupon multiplied by actual
+              days from the previous coupon date to settlement, divided by actual
+              days in the coupon period.
+            </p>
+          </article>
+          <article>
+            <h3>Ex-dividend treatment</h3>
+            <p>
+              If settlement falls after the ex-dividend date, the buyer will not
+              receive the next coupon. Accrued interest turns negative, often
+              called rebate interest, and is deducted from the clean price.
+            </p>
+          </article>
+        </div>
+        <p class="formula-copy" id="formula-copy">
+          For the selected gilt: accrued interest = coupon/2 × elapsed days ÷ days
+          in coupon period.
+        </p>
+      </section>
+
+      <section class="curve-section" aria-labelledby="curve-title">
+        <div class="section-heading">
+          <p class="eyebrow">Step 4</p>
+          <h2 id="curve-title">Plot the yield against maturity</h2>
+        </div>
+        <div class="chart-wrap">
+          <svg id="curve-chart" role="img" aria-labelledby="chart-title chart-desc"></svg>
+          <div class="tooltip" id="tooltip" hidden></div>
+        </div>
+        <p class="model-note" id="curve-summary">
+          Each dot is one conventional gilt. Short maturities anchor the left of
+          the curve; long maturities show the return investors require for cash
+          flows decades away.
+        </p>
+      </section>
+
+      <section class="lesson" aria-labelledby="build-title">
+        <div class="section-heading">
+          <p class="eyebrow">Step 5</p>
+          <h2 id="build-title">What the calculation is doing</h2>
+        </div>
+        <div class="step-grid">
+          <article>
+            <span>1</span>
+            <h3>Use the dirty price</h3>
+            <p>
+              A discounted cash-flow equation values every future coupon and the
+              final £100 principal. The value must equal the amount paid, so clean
+              price alone is incomplete.
+            </p>
+          </article>
+          <article>
+            <span>2</span>
+            <h3>Build the cash-flow schedule</h3>
+            <p>
+              Conventional gilts pay fixed coupons semi-annually. For each bond,
+              list every remaining coupon date, then add the final £100 redemption
+              payment to the maturity-date cash flow.
+            </p>
+          </article>
+          <article>
+            <span>3</span>
+            <h3>Solve the yield</h3>
+            <p>
+              Find the single annual rate that makes the present value of those
+              cash flows equal the dirty price. That is the redemption yield for
+              this one gilt.
+            </p>
+          </article>
+          <article>
+            <span>4</span>
+            <h3>Fit or bootstrap the curve</h3>
+            <p>
+              A simple explainer can connect redemption yields. A production
+              curve usually estimates zero-coupon discount factors first, then
+              derives spot and forward rates.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="caveats" aria-labelledby="caveats-title">
+        <div class="section-heading">
+          <p class="eyebrow">Caveats</p>
+          <h2 id="caveats-title">A market curve needs more than a line chart</h2>
+        </div>
+        <p>
+          This page uses the attached Tradeweb FTSE closing-price snapshot to
+          teach the mechanics for conventional gilts as of 15 May 2026. The worked
+          example applies semi-annual coupon schedules, T+1 settlement, ACT/ACT
+          accrued interest, seven-business-day ex-dividend dates, and negative
+          rebate interest inside the ex-dividend period. It still uses a simplified
+          yield solve: official production curves also need full holiday calendars,
+          exact market rounding, instrument filters, and the chosen curve-fitting
+          or bootstrapping method. Index-linked gilts are excluded because their
+          cash flows depend on RPI indexation.
+        </p>
+      </section>
+
+      <section class="caveats" aria-labelledby="next-title">
+        <div class="section-heading">
+          <p class="eyebrow">Next step</p>
+          <h2 id="next-title">From redemption yields to discount factors</h2>
+        </div>
+        <p>
+          The curve above lines up each gilt's own redemption yield. A professional
+          zero-coupon curve goes further by inferring discount factors from the
+          prices of coupon-paying gilts. Continue with
+          <a href="../uk-gilt-bootstrapping/">the bootstrapping explainer</a>.
+        </p>
+      </section>
+
+      <section class="sources" aria-labelledby="sources-title">
+        <h2 id="sources-title">Sources</h2>
+        <ul>
+          <li>Tradeweb FTSE UK Gilt Closing Prices snapshot supplied by the user, close of business 15 May 2026.</li>
+          <li><a href="https://www.dmo.gov.uk/data/gilt-market/historical-prices-and-yields/">UK Debt Management Office: historical prices and yields</a></li>
+          <li><a href="https://www.tradeweb.com/our-markets/data-analytics/gilt-closing-prices/">Tradeweb: UK Gilt Closing Prices</a></li>
+          <li><a href="https://www.dmo.gov.uk/responsibilities/gilt-market/about-gilts/">UK Debt Management Office: about gilts</a></li>
+        </ul>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

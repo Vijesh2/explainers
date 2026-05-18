@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How to bootstrap a UK gilt yield curve</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17202a;
+        --muted: #5f6b76;
+        --paper: #f5f6ef;
+        --panel: #ffffff;
+        --line: #d8ded5;
+        --accent: #b85f32;
+        --green: #177f68;
+        --blue: #315f9f;
+        --gold: #b58a28;
+        --soft: #eef2ec;
+        --shadow: 0 22px 70px rgba(35, 44, 51, 0.12);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background:
+          linear-gradient(135deg, rgba(23, 127, 104, 0.12), transparent 34%),
+          linear-gradient(315deg, rgba(184, 95, 50, 0.12), transparent 42%),
+          var(--paper);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      h1, h2, h3, p, span, strong, td, th { overflow-wrap: anywhere; }
+
+      .shell {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 44px 0 72px;
+      }
+
+      .hero {
+        display: grid;
+        align-items: end;
+        min-height: 360px;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 920px;
+        margin: 0;
+        font-size: clamp(2.75rem, 7vw, 5.5rem);
+        line-height: 0.97;
+        letter-spacing: 0;
+      }
+
+      .hero p {
+        max-width: 790px;
+        color: var(--muted);
+        font-size: 1.15rem;
+        line-height: 1.55;
+      }
+
+      section {
+        margin-top: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: var(--shadow);
+        padding: clamp(18px, 3vw, 28px);
+      }
+
+      .intro p,
+      .note p {
+        max-width: 960px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.62;
+      }
+
+      .section-heading { margin-bottom: 18px; }
+
+      .section-heading h2 {
+        margin: 0;
+        font-size: clamp(1.55rem, 3vw, 2.35rem);
+        line-height: 1.08;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        display: grid;
+        gap: 14px;
+      }
+
+      .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+      .card,
+      .metric {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcfa;
+        padding: 16px;
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+      }
+
+      .card p,
+      .metric p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.58;
+      }
+
+      .metric span,
+      th {
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 8px;
+        font-size: clamp(1.18rem, 2vw, 1.55rem);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fbfcfa;
+      }
+
+      th,
+      li,
+      a,
+      td {
+        border-bottom: 1px solid var(--line);
+        padding: 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      tr:last-child td { border-bottom: 0; }
+
+      td strong { display: block; }
+
+      ul {
+        margin: 0;
+        padding-left: 20px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      a {
+        color: var(--blue);
+        font-weight: 800;
+      }
+
+      .equation {
+        border-left: 3px solid var(--blue);
+        padding: 12px 0 12px 14px;
+        color: var(--ink);
+        font-weight: 800;
+        line-height: 1.55;
+      }
+
+      .calc {
+        display: grid;
+        gap: 14px;
+      }
+
+      .calc article {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcfa;
+        padding: 16px;
+      }
+
+      .calc h3 {
+        margin: 0 0 8px;
+      }
+
+      .calc p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        line-height: 1.58;
+      }
+
+      .calc-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .calc-grid div {
+        min-width: 0;
+        border-radius: 7px;
+        background: var(--soft);
+        padding: 12px;
+      }
+
+      .calc-grid span {
+        color: var(--muted);
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .calc-grid strong {
+        display: block;
+        margin-top: 6px;
+        font-size: 1.08rem;
+      }
+
+      .cashflows {
+        display: grid;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .cashflows div {
+        display: grid;
+        grid-template-columns: 140px minmax(0, 1fr) 120px;
+        gap: 10px;
+        align-items: center;
+        color: var(--muted);
+      }
+
+      .bar {
+        height: 16px;
+        border-radius: 999px;
+        background: #e5ebe3;
+        overflow: hidden;
+      }
+
+      .bar b {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: var(--green);
+      }
+
+      .chart-wrap {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fbfcfa;
+      }
+
+      svg {
+        display: block;
+        width: 100%;
+        height: 440px;
+      }
+
+      .grid-line { stroke: #d8ded5; }
+      .curve { fill: none; stroke: var(--blue); stroke-width: 3; }
+      .dot { fill: var(--green); stroke: #fff; stroke-width: 2; }
+      .label { fill: var(--muted); font-size: 12px; font-weight: 800; }
+
+      @media (max-width: 920px) {
+        .grid-2,
+        .grid-3,
+        .grid-4,
+        .calc-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .cashflows div {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .shell {
+          width: calc(100% - 24px);
+          padding-top: 28px;
+        }
+
+        h1 {
+          font-size: 2.15rem;
+          line-height: 1.06;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">UK gilt pricing</p>
+          <h1 id="page-title">How to bootstrap a gilt yield curve</h1>
+          <p>
+            A full walkthrough using actual conventional gilt prices from the
+            Tradeweb FTSE UK Gilt Closing Prices snapshot for 15 May 2026.
+            Start from dirty prices, infer discount factors, and turn those into
+            zero-coupon spot rates.
+          </p>
+        </div>
+      </section>
+
+      <section class="intro">
+        <p>
+          The current explainer plots redemption yields. Bootstrapping goes one
+          layer deeper. It treats each gilt price as the sum of dated cash flows,
+          then solves for the market-implied discount factor at each maturity.
+          From those discount factors we derive zero-coupon spot rates.
+        </p>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <p class="eyebrow">Conventions used</p>
+          <h2>Turn market prices into dated cash flows</h2>
+        </div>
+        <div class="grid-4">
+          <div class="metric">
+            <span>Price date</span>
+            <strong>15 May 2026</strong>
+            <p>Tradeweb FTSE closing-price snapshot supplied by the user.</p>
+          </div>
+          <div class="metric">
+            <span>Settlement</span>
+            <strong id="settlement-date">18 May 2026</strong>
+            <p>T+1 from the Friday close, excluding weekends.</p>
+          </div>
+          <div class="metric">
+            <span>Accrued interest</span>
+            <strong>ACT/ACT</strong>
+            <p>Actual days elapsed divided by actual days in the coupon period.</p>
+          </div>
+          <div class="metric">
+            <span>Ex-dividend</span>
+            <strong>7 business days</strong>
+            <p>Inside this window, the next coupon is excluded and accrued interest is negative.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <p class="eyebrow">Simplifications addressed</p>
+          <h2>What this explainer does and does not assume</h2>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Handled explicitly</h3>
+            <p>
+              The explainer builds semi-annual coupon calendars from each maturity,
+              computes settlement from the price date, applies ACT/ACT accrued
+              interest, handles ex-dividend rebate interest, uses dirty prices,
+              and discounts every remaining cash flow by date.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Chosen modelling rule</h3>
+            <p>
+              Real gilts do not all pay coupons on the same dates. When a coupon
+              date falls between two already bootstrapped maturities, this explainer
+              interpolates the log discount factor between those solved dates.
+              That choice is visible in the calculations below.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Still simplified</h3>
+            <p>
+              The explainer uses weekends rather than a full UK bank-holiday calendar,
+              uses a small short-end sample, and does not run instrument filters
+              for liquidity, tax distortions, special collateral effects, or
+              outlier prices.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Production version</h3>
+            <p>
+              A production curve would usually fit many instruments at once or
+              bootstrap with a formal interpolation and smoothing policy. The
+              point here is to make the arithmetic inspectable.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <p class="eyebrow">Equation</p>
+          <h2>Each dirty price is a sum of discounted cash flows</h2>
+        </div>
+        <p class="equation">
+          Dirty price = Σ cash flow on date t × discount factor for date t
+        </p>
+        <p class="equation">
+          Spot rate for maturity T = discount factor(T)<sup>-1/T</sup> - 1
+        </p>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <p class="eyebrow">Term structure</p>
+          <h2>Bootstrapped first five maturity points</h2>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Gilt</th>
+              <th>Dirty price</th>
+              <th>Maturity</th>
+              <th>Discount factor</th>
+              <th>Zero-coupon spot rate</th>
+            </tr>
+          </thead>
+          <tbody id="term-body"></tbody>
+        </table>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <p class="eyebrow">Curve</p>
+          <h2>The resulting zero-coupon curve</h2>
+        </div>
+        <div class="chart-wrap">
+          <svg id="curve-chart" role="img" aria-label="Bootstrapped zero-coupon gilt curve"></svg>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <p class="eyebrow">Detailed calculations</p>
+          <h2>How the first five entries are solved</h2>
+        </div>
+        <div class="calc" id="calc-list"></div>
+      </section>
+
+      <section class="note">
+          <p>
+          This explainer builds on the simpler gilt yield-curve walkthrough, which
+          shows how clean market prices become dirty prices and redemption yields.
+          Bootstrapping is the next step: it converts coupon-paying gilt prices
+          into a zero-coupon term structure.
+        </p>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <p class="eyebrow">Sources</p>
+          <h2>Data and references</h2>
+        </div>
+        <ul>
+          <li>Tradeweb FTSE UK Gilt Closing Prices snapshot supplied by the user, close of business 15 May 2026.</li>
+          <li><a href="../uk-gilt-yield-curve/">How to build a yield curve</a>, the preceding explainer on clean prices, dirty prices, and redemption yields.</li>
+          <li><a href="https://www.dmo.gov.uk/data/gilt-market/historical-prices-and-yields/">UK Debt Management Office: historical prices and yields</a></li>
+          <li><a href="https://www.tradeweb.com/our-markets/data-analytics/gilt-closing-prices/">Tradeweb: UK Gilt Closing Prices</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <script>
+      const DATA_DATE = new Date("2026-05-15T00:00:00Z");
+      const gilts = [
+        { name: "UKT 1.5 07/26", coupon: 1.5, maturity: "2026-07-22", clean: 99.581, dirty: 100.061663, accrued: 0.480663 },
+        { name: "UKT 0.375 10/26", coupon: 0.375, maturity: "2026-10-22", clean: 98.531, dirty: 98.557639, accrued: 0.026639 },
+        { name: "UKT 4.125 01/27", coupon: 4.125, maturity: "2027-01-29", clean: 99.907, dirty: 101.149058, accrued: 1.242058 },
+        { name: "UKT 3.75 03/27", coupon: 3.75, maturity: "2027-03-07", clean: 99.563, dirty: 100.296696, accrued: 0.733696 },
+        { name: "UKT 1.25 07/27", coupon: 1.25, maturity: "2027-07-22", clean: 96.431, dirty: 96.831552, accrued: 0.400552 },
+      ];
+
+      function utcDate(iso) {
+        return new Date(`${iso}T00:00:00Z`);
+      }
+
+      function dateKey(date) {
+        return date.toISOString().slice(0, 10);
+      }
+
+      function isWeekend(date) {
+        const day = date.getUTCDay();
+        return day === 0 || day === 6;
+      }
+
+      function addDays(date, days) {
+        const next = new Date(date);
+        next.setUTCDate(next.getUTCDate() + days);
+        return next;
+      }
+
+      function addBusinessDays(date, days) {
+        let current = new Date(date);
+        let remaining = Math.abs(days);
+        const step = days >= 0 ? 1 : -1;
+        while (remaining > 0) {
+          current = addDays(current, step);
+          if (!isWeekend(current)) remaining -= 1;
+        }
+        return current;
+      }
+
+      function addMonths(date, months) {
+        const next = new Date(date);
+        const day = next.getUTCDate();
+        next.setUTCDate(1);
+        next.setUTCMonth(next.getUTCMonth() + months);
+        const lastDay = new Date(Date.UTC(next.getUTCFullYear(), next.getUTCMonth() + 1, 0)).getUTCDate();
+        next.setUTCDate(Math.min(day, lastDay));
+        return next;
+      }
+
+      function daysBetween(start, end) {
+        return Math.round((end - start) / (24 * 60 * 60 * 1000));
+      }
+
+      function yearsBetween(start, end) {
+        return daysBetween(start, end) / 365.25;
+      }
+
+      function fmt(value, digits = 4) {
+        return Number(value).toFixed(digits);
+      }
+
+      function fmtDate(value) {
+        const date = value instanceof Date ? value : utcDate(value);
+        return new Intl.DateTimeFormat("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }).format(date);
+      }
+
+      const settlementDate = addBusinessDays(DATA_DATE, 1);
+
+      function couponDates(gilt) {
+        const dates = [];
+        let date = utcDate(gilt.maturity);
+        while (date > addMonths(settlementDate, -6)) {
+          dates.unshift(new Date(date));
+          date = addMonths(date, -6);
+        }
+        return dates;
+      }
+
+      function couponContext(gilt) {
+        const dates = couponDates(gilt);
+        const nextCoupon = dates.find((date) => date > settlementDate) || utcDate(gilt.maturity);
+        const pastCoupons = dates.filter((date) => date <= settlementDate);
+        const previousCoupon = pastCoupons[pastCoupons.length - 1] || addMonths(nextCoupon, -6);
+        const exDividend = addBusinessDays(nextCoupon, -7);
+        const inExDividend = settlementDate > exDividend && settlementDate < nextCoupon;
+        const couponPayment = gilt.coupon / 2;
+        const periodDays = daysBetween(previousCoupon, nextCoupon);
+        const elapsedDays = daysBetween(previousCoupon, settlementDate);
+        const rebateDays = daysBetween(settlementDate, nextCoupon);
+        const accrued = inExDividend
+          ? -(couponPayment * rebateDays) / periodDays
+          : (couponPayment * elapsedDays) / periodDays;
+        return { dates, previousCoupon, nextCoupon, exDividend, inExDividend, couponPayment, periodDays, elapsedDays, rebateDays, accrued };
+      }
+
+      function cashflows(gilt) {
+        const context = couponContext(gilt);
+        return context.dates
+          .filter((date) => {
+            if (date <= settlementDate) return false;
+            if (context.inExDividend && date <= context.nextCoupon) return false;
+            return true;
+          })
+          .map((date) => ({
+            date,
+            years: yearsBetween(settlementDate, date),
+            amount: context.couponPayment + (dateKey(date) === gilt.maturity ? 100 : 0),
+          }));
+      }
+
+      function spotFromDf(df, years) {
+        return (df ** (-1 / years) - 1) * 100;
+      }
+
+      function interpolateDf(date, points) {
+        const t = yearsBetween(settlementDate, date);
+        const exact = points.find((point) => dateKey(point.date) === dateKey(date));
+        if (exact) return { df: exact.df, note: `known ${fmt(exact.df, 6)}` };
+
+        const lower = [...points].reverse().find((point) => point.years < t);
+        const upper = points.find((point) => point.years > t);
+        if (!lower || !upper) {
+          throw new Error(`No bracket for ${dateKey(date)}`);
+        }
+
+        const weight = (t - lower.years) / (upper.years - lower.years);
+        const logDf = Math.log(lower.df) + weight * (Math.log(upper.df) - Math.log(lower.df));
+        return {
+          df: Math.exp(logDf),
+          note: `interpolated between ${fmtDate(lower.date)} and ${fmtDate(upper.date)}`,
+        };
+      }
+
+      function bootstrap() {
+        const points = [{ date: settlementDate, years: 0, df: 1, name: "Settlement" }];
+        const rows = [];
+
+        for (const gilt of gilts) {
+          const flows = cashflows(gilt);
+          const maturity = utcDate(gilt.maturity);
+          const maturityYears = yearsBetween(settlementDate, maturity);
+          const earlierFlows = flows.slice(0, -1);
+          const finalFlow = flows[flows.length - 1];
+          let knownPv = 0;
+          const flowDetails = [];
+
+          for (const flow of earlierFlows) {
+            const interp = interpolateDf(flow.date, points);
+            const pv = flow.amount * interp.df;
+            knownPv += pv;
+            flowDetails.push({ ...flow, df: interp.df, pv, note: interp.note });
+          }
+
+          const df = (gilt.dirty - knownPv) / finalFlow.amount;
+          const spot = spotFromDf(df, maturityYears);
+          const point = { date: maturity, years: maturityYears, df, spot, name: gilt.name };
+          points.push(point);
+          points.sort((a, b) => a.years - b.years);
+
+          rows.push({
+            gilt,
+            flows,
+            earlierFlows: flowDetails,
+            finalFlow,
+            knownPv,
+            df,
+            spot,
+            maturity,
+            maturityYears,
+            accruedCalc: couponContext(gilt).accrued,
+          });
+        }
+
+        return rows;
+      }
+
+      const rows = bootstrap();
+
+      document.querySelector("#settlement-date").textContent = fmtDate(settlementDate);
+
+      document.querySelector("#term-body").innerHTML = rows.map((row) => `
+        <tr>
+          <td><strong>${row.gilt.name}</strong>${fmt(row.gilt.coupon, 3)}% coupon</td>
+          <td>${fmt(row.gilt.dirty, 6)}<br><small>clean ${fmt(row.gilt.clean, 3)} + accrued ${fmt(row.accruedCalc, 6)}</small></td>
+          <td>${fmtDate(row.maturity)}<br><small>${fmt(row.maturityYears, 3)} years from settlement</small></td>
+          <td><strong>${fmt(row.df, 6)}</strong></td>
+          <td><strong>${fmt(row.spot, 3)}%</strong></td>
+        </tr>
+      `).join("");
+
+      document.querySelector("#calc-list").innerHTML = rows.map((row, index) => {
+        const finalFormula = `DF(${fmtDate(row.maturity)}) = (${fmt(row.gilt.dirty, 6)} - ${fmt(row.knownPv, 6)}) / ${fmt(row.finalFlow.amount, 6)} = ${fmt(row.df, 6)}`;
+        const flowRows = row.flows.map((flow) => {
+          const detail = row.earlierFlows.find((item) => dateKey(item.date) === dateKey(flow.date));
+          const isFinal = dateKey(flow.date) === row.gilt.maturity;
+          const width = Math.min(100, Math.max(8, flow.amount));
+          return `
+            <div>
+              <span>${fmtDate(flow.date)}</span>
+              <span class="bar"><b style="width: ${width}%;"></b></span>
+              <strong>${fmt(flow.amount, 4)}${isFinal ? " final" : " coupon"}</strong>
+              ${detail ? `<small>${detail.note}; PV ${fmt(detail.pv, 6)}</small>` : `<small>solved as the new maturity point</small>`}
+            </div>
+          `;
+        }).join("");
+
+        return `
+          <article>
+            <h3>${index + 1}. ${row.gilt.name} maturing ${fmtDate(row.maturity)}</h3>
+            <p>
+              Dirty price is ${fmt(row.gilt.dirty, 6)}. Earlier cash flows have present value
+              ${fmt(row.knownPv, 6)} using known or interpolated discount factors. The final
+              cash flow is ${fmt(row.finalFlow.amount, 6)}.
+            </p>
+            <div class="calc-grid">
+              <div><span>Clean price</span><strong>${fmt(row.gilt.clean, 3)}</strong></div>
+              <div><span>Accrued</span><strong>${fmt(row.accruedCalc, 6)}</strong></div>
+              <div><span>Dirty price</span><strong>${fmt(row.gilt.dirty, 6)}</strong></div>
+              <div><span>Discount factor</span><strong>${fmt(row.df, 6)}</strong></div>
+              <div><span>Spot rate</span><strong>${fmt(row.spot, 3)}%</strong></div>
+            </div>
+            <p class="equation">${finalFormula}</p>
+            <div class="cashflows">${flowRows}</div>
+          </article>
+        `;
+      }).join("");
+
+      function renderChart() {
+        const svg = document.querySelector("#curve-chart");
+        const width = 940;
+        const height = 440;
+        const margin = { top: 36, right: 34, bottom: 58, left: 62 };
+        const plotW = width - margin.left - margin.right;
+        const plotH = height - margin.top - margin.bottom;
+        const minX = 0;
+        const maxX = Math.ceil(Math.max(...rows.map((row) => row.maturityYears)));
+        const minY = Math.floor(Math.min(...rows.map((row) => row.spot)) * 10) / 10 - 0.1;
+        const maxY = Math.ceil(Math.max(...rows.map((row) => row.spot)) * 10) / 10 + 0.1;
+        const x = (years) => margin.left + ((years - minX) / (maxX - minX)) * plotW;
+        const y = (spot) => margin.top + plotH - ((spot - minY) / (maxY - minY)) * plotH;
+        const line = rows.map((row, i) => `${i === 0 ? "M" : "L"}${x(row.maturityYears)},${y(row.spot)}`).join(" ");
+        const yTicks = [minY, (minY + maxY) / 2, maxY];
+        const xTicks = [0, 0.5, 1, 1.5];
+
+        svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        svg.innerHTML = `
+          ${yTicks.map((tick) => `
+            <line class="grid-line" x1="${margin.left}" x2="${margin.left + plotW}" y1="${y(tick)}" y2="${y(tick)}"></line>
+            <text class="label" x="${margin.left - 10}" y="${y(tick) + 4}" text-anchor="end">${fmt(tick, 2)}%</text>
+          `).join("")}
+          ${xTicks.map((tick) => `
+            <line class="grid-line" x1="${x(tick)}" x2="${x(tick)}" y1="${margin.top}" y2="${margin.top + plotH}" opacity="0.55"></line>
+            <text class="label" x="${x(tick)}" y="${height - 20}" text-anchor="middle">${tick}y</text>
+          `).join("")}
+          <path class="curve" d="${line}"></path>
+          ${rows.map((row) => `
+            <circle class="dot" cx="${x(row.maturityYears)}" cy="${y(row.spot)}" r="6"></circle>
+            <text class="label" x="${x(row.maturityYears)}" y="${y(row.spot) - 12}" text-anchor="middle">${fmt(row.spot, 2)}%</text>
+          `).join("")}
+          <text class="label" x="${margin.left}" y="22">Zero-coupon spot rate</text>
+          <text class="label" x="${width - margin.right}" y="${height - 20}" text-anchor="end">Years from settlement</text>
+        `;
+      }
+
+      renderChart();
+    </script>
+  </body>
+</html>
