@@ -69,6 +69,10 @@
               <span>Demand met</span>
               <strong id="demand-met">42 GW</strong>
             </div>
+            <div>
+              <span>Gas-setter pressure</span>
+              <strong id="gas-pressure">sometimes</strong>
+            </div>
           </div>
         </div>
 
@@ -85,6 +89,34 @@
         <p id="model-summary" class="model-summary">
           Gas is needed to meet the last slice of demand, so gas sets the clearing price.
         </p>
+      </section>
+
+      <section class="retail-bill" aria-labelledby="retail-bill-title">
+        <div class="section-heading">
+          <p class="eyebrow">Wholesale is not the bill</p>
+          <h2 id="retail-bill-title">Cheaper wholesale power does not automatically mean cheaper bills</h2>
+        </div>
+        <div class="bill-grid">
+          <div>
+            <p>
+              The merit-order model explains the wholesale energy price. Household
+              and business bills also include network costs, policy levies, taxes,
+              supplier costs, and risk from buying energy ahead of time.
+            </p>
+            <p>
+              Renewables can reduce wholesale prices when they push gas out of the
+              marginal position. Whether customers feel that depends on how the
+              rest of the bill is designed.
+            </p>
+          </div>
+          <div class="bill-stack" aria-label="Illustrative retail electricity bill components">
+            <span class="bill-wholesale">Wholesale energy</span>
+            <span class="bill-network">Network costs</span>
+            <span class="bill-policy">Policy levies</span>
+            <span class="bill-tax">Taxes</span>
+            <span class="bill-supplier">Supplier costs</span>
+          </div>
+        </div>
       </section>
 
       <section class="lesson" aria-labelledby="lesson-title">
@@ -125,6 +157,40 @@
             <p>
               Gas plants are flexible and dispatchable, so they often cover the
               final slice when demand is high or renewable output is low.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="renewables-metric" aria-labelledby="renewables-metric-title">
+        <div class="section-heading">
+          <p class="eyebrow">The better question</p>
+          <h2 id="renewables-metric-title">More renewables helps, but not by itself</h2>
+        </div>
+        <div class="metric-grid">
+          <article>
+            <h3>Renewables share is incomplete</h3>
+            <p>
+              Wind and solar usually lower wholesale prices through the merit-order
+              effect, but renewables share alone does not explain prices. Hydro,
+              nuclear, imports, storage, weather, demand, and gas exposure all
+              affect what price clears the market.
+            </p>
+          </article>
+          <article>
+            <h3>Gas-setter hours matter</h3>
+            <p>
+              A sharper question is how often gas is the marginal generator. More
+              clean generation helps most when it turns gas from an everyday price
+              setter into occasional backup.
+            </p>
+          </article>
+          <article>
+            <h3>Flexibility decides the result</h3>
+            <p>
+              Storage, flexible demand, interconnectors, and grid capacity decide
+              whether surplus renewable output can cover the hours that would
+              otherwise need gas.
             </p>
           </article>
         </div>
@@ -202,6 +268,49 @@
         </div>
       </section>
 
+      <section class="retail-reform" aria-labelledby="retail-reform-title">
+        <div class="section-heading">
+          <p class="eyebrow">Retail bill design</p>
+          <h2 id="retail-reform-title">Why cheaper wholesale power may not reach consumers</h2>
+        </div>
+        <div class="retail-grid">
+          <article>
+            <h3>Costs are recovered through bills</h3>
+            <p>
+              Network charges, policy levies, taxes, supplier costs, and hedging
+              all shape the retail price. If these are loaded onto electricity
+              bills, falling wholesale prices can be partly hidden.
+            </p>
+          </article>
+          <article>
+            <h3>Electricity competes with gas</h3>
+            <p>
+              The electricity-to-gas price ratio matters for heat pumps and other
+              electrification choices. Clean power can be cheap to generate while
+              retail electricity still feels expensive compared with gas.
+            </p>
+          </article>
+        </div>
+        <div class="feedback-loop" aria-label="Electrification feedback loop">
+          <article>
+            <span>Low electrification</span>
+            <p>
+              Fixed network and policy costs are spread over fewer kWh, which can
+              keep unit charges high and slow uptake of heat pumps, EVs, and
+              electric industry.
+            </p>
+          </article>
+          <article>
+            <span>High electrification</span>
+            <p>
+              More clean electricity demand spreads fixed costs over more kWh,
+              improving the case for electrification if the grid and flexibility
+              buildout keeps pace.
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section class="synthesis" aria-labelledby="synthesis-title">
         <div class="section-heading">
           <p class="eyebrow">Mental model</p>
@@ -223,6 +332,38 @@
             consumers remain exposed to gas prices while gas is still often the
             final generator needed.
           </p>
+        </div>
+      </section>
+
+      <section class="system-costs" aria-labelledby="system-costs-title">
+        <div class="section-heading">
+          <p class="eyebrow">Integration costs</p>
+          <h2 id="system-costs-title">The cost of not building the rest of the system</h2>
+        </div>
+        <div class="system-grid">
+          <article>
+            <h3>Real costs</h3>
+            <p>
+              More wind and solar need grid reinforcement, balancing, storage,
+              demand flexibility, curtailment management, and reserve capacity.
+              These integration costs are real.
+            </p>
+          </article>
+          <article>
+            <h3>Necessary complements</h3>
+            <p>
+              The lesson is not that renewables cannot lower prices. It is that
+              generation, networks, storage, and flexible demand have to scale
+              together.
+            </p>
+          </article>
+          <article>
+            <h3>The expensive mistake</h3>
+            <p>
+              If clean generation grows faster than the grid and flexibility, cheap
+              power can be curtailed while gas still runs elsewhere to meet demand.
+            </p>
+          </article>
         </div>
       </section>
 
@@ -365,6 +506,39 @@
         </div>
       </section>
 
+      <section class="measurement-summary" aria-labelledby="measurement-summary-title">
+        <div class="section-heading">
+          <p class="eyebrow">Measure the right thing</p>
+          <h2 id="measurement-summary-title">What are you measuring?</h2>
+        </div>
+        <div class="measurement-table" aria-label="Electricity price measurement guide">
+          <div class="measurement-row measurement-head">
+            <span>Question</span>
+            <span>Better metric</span>
+          </div>
+          <div class="measurement-row">
+            <span>Are renewables reducing wholesale prices?</span>
+            <strong>Wholesale price plus gas-setter hours</strong>
+          </div>
+          <div class="measurement-row">
+            <span>Are households paying less?</span>
+            <strong>Retail bill components</strong>
+          </div>
+          <div class="measurement-row">
+            <span>Is the system becoming cheaper to run?</span>
+            <strong>Generation, integration, and network costs</strong>
+          </div>
+          <div class="measurement-row">
+            <span>Is electrification attractive?</span>
+            <strong>Electricity-to-gas price ratio</strong>
+          </div>
+          <div class="measurement-row">
+            <span>Is gas losing influence?</span>
+            <strong>Share of hours when gas is marginal</strong>
+          </div>
+        </div>
+      </section>
+
       <section class="sources" aria-labelledby="sources-title">
         <h2 id="sources-title">Sources to check when writing the final copy</h2>
         <ul>
@@ -375,6 +549,7 @@
           <li><a href="https://www.gov.uk/government/publications/clean-flexibility-roadmap/clean-flexibility-roadmap">Clean Flexibility Roadmap</a></li>
           <li><a href="https://modoenergy.com/research/en/gb-bess-buildout-q1-2026-great-britain-battery-energy-storage-connections-reform">Modo Energy: GB BESS buildout Q1 2026</a></li>
           <li><a href="https://www.neso.energy/industry-information/connections-reform/connections-reform-results">NESO: Connections Reform Results</a></li>
+          <li><a href="https://janrosenow.substack.com/p/do-renewables-make-electricity-cheaper">Jan Rosenow: Do renewables make electricity cheaper?</a></li>
         </ul>
       </section>
     </main>

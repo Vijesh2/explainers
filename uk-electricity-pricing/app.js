@@ -6,6 +6,7 @@ const demandLine = document.querySelector("#demand-line");
 const clearingPrice = document.querySelector("#clearing-price");
 const marginalSource = document.querySelector("#marginal-source");
 const demandMet = document.querySelector("#demand-met");
+const gasPressure = document.querySelector("#gas-pressure");
 const modelSummary = document.querySelector("#model-summary");
 const alternativeTabs = [...document.querySelectorAll("[data-alternative]")];
 const alternativeCard = document.querySelector("#alternative-card");
@@ -118,6 +119,17 @@ function findMarginal(sources, demand) {
   return sources[sources.length - 1];
 }
 
+function gasSetterPressureLabel(demand, sources) {
+  const nonGasCapacity = sources
+    .filter((source) => source.id !== "gas")
+    .reduce((sum, source) => sum + source.capacity, 0);
+  const gasNeed = demand - nonGasCapacity;
+
+  if (gasNeed > 9) return "often";
+  if (gasNeed > 0) return "sometimes";
+  return "rarely";
+}
+
 function renderMarket() {
   const demand = Number(demandInput.value);
   const sources = sourcesForState();
@@ -139,6 +151,7 @@ function renderMarket() {
   clearingPrice.textContent = formatPrice(marginal.price);
   marginalSource.textContent = marginal.label;
   demandMet.textContent = formatGw(demand);
+  gasPressure.textContent = gasSetterPressureLabel(demand, sources);
 
   if (marginal.id === "gas") {
     modelSummary.textContent = "Gas is needed to meet the last slice of demand, so gas sets the clearing price.";

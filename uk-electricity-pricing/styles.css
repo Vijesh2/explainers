@@ -65,7 +65,16 @@ input {
 .model-grid > *,
 .step-grid > *,
 .tradeoff-grid > *,
-.synthesis-grid > * {
+.synthesis-grid > *,
+.bill-grid > *,
+.metric-grid > *,
+.retail-grid > *,
+.feedback-loop > *,
+.system-grid > *,
+.target-grid > *,
+.battery-status > *,
+.landscape-grid > *,
+.measurement-row > * {
   min-width: 0;
 }
 
@@ -139,9 +148,14 @@ input {
 .model,
 .bridge,
 .alternatives,
+.retail-bill,
+.renewables-metric,
+.retail-reform,
 .synthesis,
+.system-costs,
 .flex-targets,
 .battery-landscape,
+.measurement-summary,
 .sources {
   margin-top: 24px;
   border: 1px solid var(--line);
@@ -164,9 +178,14 @@ input {
 
 .model,
 .alternatives,
+.retail-bill,
+.renewables-metric,
+.retail-reform,
 .synthesis,
+.system-costs,
 .flex-targets,
 .battery-landscape,
+.measurement-summary,
 .sources {
   padding: clamp(18px, 3vw, 28px);
 }
@@ -214,7 +233,7 @@ input {
 }
 
 .market-readout {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .market-readout div {
@@ -239,6 +258,8 @@ input {
   color: var(--ink);
   font-size: clamp(1.2rem, 2.4vw, 1.75rem);
   line-height: 1.1;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .stack-wrap {
@@ -390,6 +411,128 @@ input {
 
 .step-grid p {
   margin: 0;
+}
+
+.bill-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.bill-grid p,
+.retail-grid p,
+.metric-grid p,
+.system-grid p,
+.feedback-loop p {
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.bill-grid p:first-child {
+  margin-top: 0;
+}
+
+.bill-grid p:last-child {
+  margin-bottom: 0;
+}
+
+.bill-stack {
+  display: grid;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfa;
+}
+
+.bill-stack span {
+  display: flex;
+  align-items: center;
+  min-height: 38px;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #fff;
+  font-weight: 900;
+}
+
+.bill-wholesale {
+  width: 58%;
+  background: var(--wind);
+}
+
+.bill-network {
+  width: 88%;
+  background: var(--nuclear);
+}
+
+.bill-policy {
+  width: 72%;
+  background: var(--imports);
+}
+
+.bill-tax {
+  width: 46%;
+  background: var(--accent);
+}
+
+.bill-supplier {
+  width: 62%;
+  background: var(--gas);
+}
+
+.metric-grid,
+.retail-grid,
+.system-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.retail-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.metric-grid article,
+.retail-grid article,
+.system-grid article,
+.feedback-loop article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: #fbfcfa;
+}
+
+.metric-grid h3,
+.retail-grid h3,
+.system-grid h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+}
+
+.metric-grid p,
+.retail-grid p,
+.system-grid p,
+.feedback-loop p {
+  margin: 0;
+}
+
+.feedback-loop {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.feedback-loop span {
+  display: inline-block;
+  margin-bottom: 8px;
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 900;
 }
 
 .bridge {
@@ -631,6 +774,43 @@ input {
   font-size: 1.05rem;
 }
 
+.measurement-table {
+  display: grid;
+  gap: 6px;
+}
+
+.measurement-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(240px, 1.1fr);
+  gap: 6px;
+}
+
+.measurement-row span,
+.measurement-row strong {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 11px;
+  background: #fbfcfa;
+}
+
+.measurement-row span {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.measurement-row strong {
+  color: var(--muted);
+}
+
+.measurement-head span {
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 .sources {
   box-shadow: none;
 }
@@ -652,12 +832,18 @@ input {
 @media (max-width: 900px) {
   .hero,
   .model-grid,
+  .bill-grid,
   .step-grid,
+  .metric-grid,
+  .retail-grid,
+  .feedback-loop,
+  .system-grid,
   .tradeoff-grid,
   .synthesis-grid,
   .target-grid,
   .battery-status,
-  .landscape-grid {
+  .landscape-grid,
+  .measurement-row {
     grid-template-columns: 1fr;
   }
 
@@ -670,7 +856,7 @@ input {
   }
 
   .market-readout {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .matrix {
@@ -714,5 +900,23 @@ input {
   .alternative-tabs {
     display: grid;
     grid-template-columns: 1fr;
+  }
+
+  .market-readout {
+    grid-template-columns: 1fr;
+  }
+
+  .bill-stack span {
+    width: 100%;
+  }
+
+  .retail-bill,
+  .renewables-metric,
+  .retail-reform,
+  .system-costs,
+  .flex-targets,
+  .battery-landscape,
+  .measurement-summary {
+    overflow: hidden;
   }
 }
