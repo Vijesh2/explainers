@@ -3,6 +3,7 @@ Explainers for topics that benefit from explainers
 
 ## Current explainers
 
+- [The Singularity: intelligence at machine speed](singularity/)
 - [How floating point numbers are stored](floating-point/)
 - [Why gas sets UK electricity prices](uk-electricity-pricing/)
 - [How the UK gilt market works](uk-gilt-market/)
