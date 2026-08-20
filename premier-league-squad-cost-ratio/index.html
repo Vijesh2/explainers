@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An interactive guide to the Premier League's Squad Cost Ratio rules from 2026/27.">
+    <title>Premier League Squad Cost Ratio, explained</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Premier League finance · from 2026/27</p>
+          <h1>The new cost of a squad</h1>
+          <p class="dek">Squad Cost Ratio replaces the old profit-and-loss test with a seasonal question: how much of a club’s football income is being spent on the team?</p>
+        </div>
+        <div class="hero-ratio" aria-label="Premier League green threshold: 85 percent">
+          <strong>85<span>%</span></strong>
+          <p>the green threshold</p>
+        </div>
+      </header>
+
+      <section class="thesis">
+        <p><strong>The shortcut:</strong> add player and head-coach wages, agent fees and annual transfer costs; divide by football-related revenue plus averaged player-trading results. At or below 85% is green. Above it brings scrutiny and, eventually, a levy. The starting red line is 115%—cross it and points are at stake.</p>
+      </section>
+
+      <section class="formula-section" aria-labelledby="formula-title">
+        <div class="section-head">
+          <p class="eyebrow">The calculation</p>
+          <h2 id="formula-title">What goes into the ratio?</h2>
+        </div>
+        <div class="formula" aria-label="Squad costs divided by football-related revenue and player trading">
+          <div class="formula-part numerator">
+            <span>Squad costs</span>
+            <strong>Wages + agents + transfer amortisation / impairment</strong>
+            <small>Contracted players and head coach</small>
+          </div>
+          <div class="divide" aria-hidden="true">÷</div>
+          <div class="formula-part denominator">
+            <span>Football resources</span>
+            <strong>Football-related revenue + net player-trading result</strong>
+            <small>Player trading is smoothed; revenue includes football operations and distributions</small>
+          </div>
+          <div class="equals" aria-hidden="true">=</div>
+          <div class="formula-result"><strong>SCR</strong><span>× 100</span></div>
+        </div>
+        <div class="definitions">
+          <article><span>Included</span><p>Player and head-coach pay, agents’ fees, and the annual accounting cost of transfers.</p></article>
+          <article><span>Excluded costs</span><p>Assistant coaches, commercial and administrative staff, academies, women’s teams and off-pitch investment.</p></article>
+          <article><span>Revenue</span><p>Commercial, matchday and competition income, plus qualifying stadium events and net player trading.</p></article>
+        </div>
+      </section>
+
+      <section class="calculator" aria-labelledby="calculator-title">
+        <div class="section-head">
+          <p class="eyebrow">Interactive club model</p>
+          <h2 id="calculator-title">Put a club through the test</h2>
+          <p>Illustrative values, not a forecast for any real club.</p>
+        </div>
+        <div class="calculator-grid">
+          <div class="controls">
+            <label><span>Football-related revenue <output id="revenue-output">£500m</output></span><input id="revenue" type="range" min="100" max="900" step="10" value="500"></label>
+            <label><span>Net player-trading result <output id="trading-output">£20m</output></span><input id="trading" type="range" min="-80" max="180" step="5" value="20"></label>
+            <label><span>Player + head-coach wages <output id="wages-output">£280m</output></span><input id="wages" type="range" min="50" max="700" step="5" value="280"></label>
+            <label><span>Transfer amortisation / impairment <output id="transfers-output">£120m</output></span><input id="transfers" type="range" min="0" max="350" step="5" value="120"></label>
+            <label><span>Agents’ fees <output id="agents-output">£25m</output></span><input id="agents" type="range" min="0" max="100" step="1" value="25"></label>
+          </div>
+          <div class="result" aria-live="polite">
+            <div class="ratio-readout"><span>Your SCR</span><strong id="ratio-output">81.7%</strong><em id="status-output">Inside the green threshold</em></div>
+            <div class="track" aria-label="Squad Cost Ratio threshold scale">
+              <div class="zone green"><span>Green</span></div><div class="zone amber"><span>Allowance</span></div><div class="zone red"><span>Red</span></div>
+              <i class="marker" id="marker"></i>
+              <b class="tick tick-85">85%</b><b class="tick tick-115">115%</b>
+            </div>
+            <p id="result-copy">No SCR levy or sporting sanction.</p>
+            <dl><div><dt>Squad costs</dt><dd id="cost-output">£425m</dd></div><div><dt>Football resources</dt><dd id="resource-output">£520m</dd></div><div><dt>Green-limit spend</dt><dd id="green-output">£442m</dd></div></dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="thresholds" aria-labelledby="threshold-title">
+        <div class="section-head"><p class="eyebrow">Not one cap, but two</p><h2 id="threshold-title">Green is a levy line. Red is the sporting line.</h2></div>
+        <div class="threshold-grid">
+          <article class="green-card"><strong>≤ 85%</strong><h3>Compliant</h3><p>The club passes the 1 March compliance test. No further SCR action is needed.</p></article>
+          <article class="amber-card"><strong>85–115%</strong><h3>Allowance used</h3><p>Actual figures are checked after the season. A confirmed breach can bring a levy and reduces next season’s allowance.</p></article>
+          <article class="red-card"><strong>&gt; red line</strong><h3>Points at stake</h3><p>A six-point deduction, plus one further point for every £6.5m spent above the club’s red threshold.</p></article>
+        </div>
+        <p class="fine-note"><strong>Levy example:</strong> if the applicable overspend is £250,000 and the final ratio is 89%, the levy is £10,000: £250,000 × 4%.</p>
+      </section>
+
+      <section class="feedback" aria-labelledby="feedback-title">
+        <div class="section-head"><p class="eyebrow">The feedback loop</p><h2 id="feedback-title">The 30-point cushion gets used up</h2><p>Start at 115%. Finish above 85%, and next season’s red line falls by the size of the breach. A compliant year rebuilds 10 points, up to the 30-point maximum.</p></div>
+        <div class="season-strip" aria-label="Example of the negative feedback loop">
+          <article><span>Season 1 red line</span><strong>115%</strong><p>30-point allowance</p></article><i>→</i><article><span>Season 1 actual</span><strong>100%</strong><p>15 points above green</p></article><i>→</i><article><span>Season 2 red line</span><strong>100%</strong><p>Only 15 points remain</p></article><i>→</i><article class="danger"><span>Season 2 actual</span><strong>101%</strong><p>Red line breached</p></article>
+        </div>
+        <p class="carry-note">Unused green headroom cannot be banked. The allowance is a shock absorber, not a transfer kitty.</p>
+      </section>
+
+      <section class="compare" aria-labelledby="compare-title">
+        <div class="section-head"><p class="eyebrow">Premier League vs UEFA</p><h2 id="compare-title">Europe means a tighter line</h2></div>
+        <div class="compare-bars">
+          <div><span>Premier League</span><div><i style="width:85%"></i><b>85%</b></div><p>Seasonal test, with a multi-year allowance.</p></div>
+          <div><span>UEFA competitions</span><div><i style="width:70%"></i><b>70%</b></div><p>European qualifiers must still comply with UEFA’s rule.</p></div>
+        </div>
+        <p>The extra 15 points for non-European clubs is meant to help challengers invest towards qualification and to soften the revenue shock when a club drops out of Europe.</p>
+      </section>
+
+      <section class="winners-losers" aria-labelledby="winners-title">
+        <div class="section-head">
+          <p class="eyebrow">Purpose and pressure</p>
+          <h2 id="winners-title">What is the rule trying to achieve—and who does it favour?</h2>
+          <p>The League’s case is that clubs should be able to aspire and invest, but squad spending should remain connected to recurring football income. In-season checks are meant to expose problems earlier, while leaving stadiums, academies, women’s football and other off-pitch investment outside the cost cap.</p>
+        </div>
+
+        <div class="incentive-map">
+          <article class="benefit"><span>More comfortable</span><h3>Big, dependable revenues</h3><p>Clubs with large commercial, broadcast, matchday and European income get a larger spending base. If their existing wage bill is controlled, they can add talent without approaching 85%.</p></article>
+          <article class="benefit"><span>More comfortable</span><h3>Good player traders</h3><p>Clubs that recruit or develop players cheaply and sell well can add net player-trading profit to the denominator. A productive academy therefore creates both players and regulatory headroom.</p></article>
+          <article class="benefit"><span>More freedom</span><h3>Off-pitch builders</h3><p>Investment in facilities, the academy, women’s football and commercial growth is not treated as squad cost. The route to a bigger future playing budget is to grow football revenue first.</p></article>
+          <article class="pressure"><span>More constrained</span><h3>Ambitious, owner-backed challengers</h3><p>A wealthy owner cannot simply turn fresh equity into SCR revenue. A club whose sporting ambition has grown faster than its turnover can have money available but too little ratio headroom to spend it on players.</p></article>
+          <article class="pressure"><span>More constrained</span><h3>High wages and hard-to-sell squads</h3><p>Long, expensive contracts keep the numerator high. If unwanted players cannot be sold, new signings add wages, agents’ fees and amortisation before old costs have left.</p></article>
+          <article class="pressure"><span>Two rulebooks</span><h3>Clubs qualifying for Europe</h3><p>They still face UEFA’s tighter 70% rule. Qualification raises revenue, but a fast-growing challenger can discover that European success also brings a lower permitted ratio.</p></article>
+        </div>
+
+        <div class="sale-explainer">
+          <div><p class="eyebrow">Why player sales feel compulsory</p><h3>Sell one player, create room for several annual costs</h3></div>
+          <p>A sale helps twice: it removes the player’s future wages and accounting cost, and any qualifying net player-trading profit increases football resources. Academy players are especially attractive in accounting terms because they usually have little or no transfer book value, so most of the fee becomes profit.</p>
+        </div>
+
+        <div class="case-study">
+          <div class="club-mark">PSR<br>→<br>SCR</div>
+          <div>
+            <p class="eyebrow">A fair criticism—with an important distinction</p>
+            <h3>The rule can make a willing owner unable to spend</h3>
+            <p>Supporters have reasonably objected when ambitious clubs sell valued players despite having owners willing to fund further investment. Some prominent examples of that complaint arose under the old PSR loss calculation, not Premier League SCR. The two systems should not be treated as identical.</p>
+            <p>The underlying tension does carry over. Under SCR, owner funding does not itself enlarge the revenue base, while player-trading profit does. An ambitious club whose turnover has not caught up with its sporting plans can therefore be pushed towards sales even when it is neither short of cash nor trying to reduce its ambition.</p>
+            <p>SCR smooths player trading and tests squad cost seasonally, so it should reduce the incentive for one last-minute sale purely to repair a rolling three-year loss figure. But it does not remove the broader incentive to monetise players in order to create headroom.</p>
+          </div>
+        </div>
+
+        <div class="judgement"><strong>The central trade-off</strong><p>Linking spending to revenue reduces the chance that a club builds a wage bill it cannot sustain. But it can also protect the advantage of incumbents: historic success produces revenue, revenue permits spending, and spending helps preserve success. The 85% threshold and 30-point allowance give challengers more room than UEFA’s system, but they do not make owner wealth equivalent to club income.</p></div>
+      </section>
+
+      <section class="timeline-section" aria-labelledby="timeline-title">
+        <div class="section-head"><p class="eyebrow">When it bites</p><h2 id="timeline-title">Monitoring happens inside the season</h2></div>
+        <ol class="timeline">
+          <li><strong>October</strong><span>Monitoring</span><p>The League checks the club’s position against agreed estimates.</p></li>
+          <li><strong>1 March</strong><span>Compliance test</span><p>At or below green: pass. Above green: move to post-season confirmation. Above red: sporting sanction.</p></li>
+          <li><strong>June</strong><span>Accounts confirmation</span><p>Actual revenues and costs replace estimates for clubs that were above green.</p></li>
+          <li><strong>October</strong><span>Final follow-up</span><p>Further post-season assessment where required.</p></li>
+        </ol>
+        <p class="implementation"><strong>Transition:</strong> PSR governs 2025/26 while SCR runs in shadow. SCR is fully implemented in 2026/27; levies become payable for breaches from 2027/28. Historic PSR cases can still be pursued.</p>
+      </section>
+
+      <section class="takeaway">
+        <p class="eyebrow">The mental model</p>
+        <h2>SCR limits the team, not the whole club.</h2>
+        <p>PSR asked whether a club lost too much money over three years. SCR asks, every season, whether football income can support football costs. It creates quicker signals and preserves freedom to build a stadium, academy or commercial operation—but an 85% squad ratio can still leave very little income to cover everything else.</p>
+      </section>
+
+      <section class="sources" aria-labelledby="sources-title">
+        <div class="section-head"><p class="eyebrow">Primary sources</p><h2 id="sources-title">Rules checked 20 August 2026</h2></div>
+        <ul>
+          <li><a href="https://www.premierleague.com/en/news/4467022/new-premier-league-financial-system-explained">Premier League: New financial system explained</a></li>
+          <li><a href="https://www.premierleague.com/en/news/4468470">Premier League statement: New financial rules</a></li>
+          <li><a href="https://documents.uefa.com/r/UEFA-Club-Licensing-and-Financial-Sustainability-Regulations-2026/Article-93-Calculation-of-squad-cost-ratio-Online">UEFA Regulations 2026: calculation of squad cost ratio</a></li>
+          <li><a href="https://documents.uefa.com/r/UEFA-Club-Licensing-and-Financial-Sustainability-Regulations-2026/Article-94-Squad-cost-rule-Online">UEFA Regulations 2026: 70% squad cost rule</a></li>
+        </ul>
+        <p>This is a plain-English explainer, not legal or accounting advice. The Premier League’s full Section E rules govern.</p>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
