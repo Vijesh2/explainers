@@ -3,6 +3,7 @@ Explainers for topics that benefit from explainers
 
 ## Current explainers
 
+- [Firm Foundations: what makes electricity cheap?](firm-foundations/)
 - [The Singularity: intelligence at machine speed](singularity/)
 - [How floating point numbers are stored](floating-point/)
 - [Why gas sets UK electricity prices](uk-electricity-pricing/)

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An interactive guide to Onward's 18 August 2026 Firm Foundations report on cheap, reliable power.">
+    <title>Firm Foundations: what makes electricity cheap?</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <nav class="topline" aria-label="Breadcrumb"><a href="../">Explainers</a><span>Published · 20 August 2026</span></nav>
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Firm Foundations, explained</p>
+          <h1>What makes electricity cheap?</h1>
+          <p class="lede">Onward’s 18 August 2026 paper argues that Britain has focused on the cost of generating a megawatt-hour while undercounting the cost of delivering reliable power across time and place. Its alternative accepts more gas and more emissions in exchange for a smaller, more “firm” power system.</p>
+          <p class="byline">Ed Hezlet · Onward · Published 18 August 2026</p>
+        </div>
+        <div class="hero-card" aria-label="Headline comparison from the report">
+          <span>Modelled saving, 2030–50</span><strong>£320bn</strong>
+          <p>Alternative Policy Pathway versus “Business as Usual”, in 2025 prices</p>
+          <div class="trade"><b>− cost</b><i></i><b>+524 Mt CO₂</b></div>
+        </div>
+      </header>
+      <section class="thesis"><p>The report’s real question is not “are renewables cheap?” It is: <strong>what does the whole power system cost once reliability, networks and balancing are included—and how much extra carbon are we willing to accept to lower that cost?</strong></p></section>
+
+      <section class="panel" aria-labelledby="two-costs-title">
+        <div class="heading"><p class="eyebrow">Start with the distinction</p><h2 id="two-costs-title">Generation cost is not system cost</h2></div>
+        <div class="cost-compare">
+          <article><span>One generator</span><h3>Levelised cost</h3><p>The average lifetime cost of each unit a plant produces. Useful for comparing projects, but it does not by itself value when or where the electricity arrives.</p><div class="mini-meter"><i style="width:42%"></i></div></article>
+          <div class="plus" aria-hidden="true">+</div>
+          <article><span>Keeping the grid usable</span><h3>Integration costs</h3><p>Transmission, congestion, balancing, storage, ancillary services and enough dispatchable capacity for low-wind periods.</p><div class="mini-meter orange"><i style="width:74%"></i></div></article>
+          <div class="equals" aria-hidden="true">=</div>
+          <article class="total"><span>The service consumers need</span><h3>System cost</h3><p>Reliable electricity delivered when and where it is wanted. The report says policy should optimise this total—not the first box alone.</p></article>
+        </div>
+        <p class="note">This is the report’s strongest conceptual point. But allocating every network or balancing pound to a particular technology is difficult: costs depend on the entire generation mix, geography, demand profile and market design.</p>
+      </section>
+
+      <section class="panel pathways" aria-labelledby="pathways-title">
+        <div class="heading"><p class="eyebrow">Interactive comparison</p><h2 id="pathways-title">Two scenarios, two different objectives</h2><p>Select a pathway to see what has been assumed. These are scenario-specific estimates, not forecasts.</p></div>
+        <div class="tabs" role="tablist" aria-label="Modelled policy pathways"><button class="active" type="button" role="tab" aria-selected="true" data-path="bau">Business as Usual</button><button type="button" role="tab" aria-selected="false" data-path="app">Alternative Policy Pathway</button></div>
+        <article class="path-card" id="path-card" aria-live="polite"></article>
+      </section>
+
+      <section class="panel savings" aria-labelledby="savings-title">
+        <div class="heading"><p class="eyebrow">Inside the headline</p><h2 id="savings-title">Where the £320bn comes from</h2><p>The model adjusts for 7% lower cumulative electricity use under the alternative pathway.</p></div>
+        <div class="savings-grid">
+          <div class="bars" aria-label="Cumulative modelled savings by category">
+            <button data-saving="networks"><span>Networks</span><i style="--w:100%"></i><strong>£137bn</strong></button>
+            <button data-saving="wholesale"><span>Wholesale</span><i style="--w:69%"></i><strong>£94bn</strong></button>
+            <button data-saving="balancing"><span>Balancing &amp; ancillary</span><i style="--w:49%"></i><strong>£67bn</strong></button>
+            <button data-saving="subsidy"><span>Subsidies &amp; capacity</span><i style="--w:16%"></i><strong>£22bn</strong></button>
+          </div>
+          <article class="saving-note" id="saving-note" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section class="bridge" aria-labelledby="pricing-title">
+        <div><p class="eyebrow">Cross-reference: electricity pricing</p><h2 id="pricing-title">The two explainers agree on the mechanism, then part company</h2><p>The existing explainer shows why gas often sets Britain’s wholesale price and why retail bills contain much more than wholesale energy. <em>Firm Foundations</em> starts from the same plumbing, but advances a particular policy choice: keep more firm gas capacity, build much more nuclear, stop most new low-carbon support, and remove generators from carbon pricing.</p><a class="button" href="../uk-electricity-pricing/">Open the electricity-pricing explainer <span aria-hidden="true">→</span></a></div>
+        <div class="cross-grid">
+          <article><span>Both emphasise</span><strong>Gas exposure, flexibility, networks and the difference between wholesale price and the total bill.</strong></article>
+          <article><span>The earlier explainer adds</span><strong>Lower gas-setter hours can reduce wholesale prices; alternative market designs shift risk and costs rather than making them disappear.</strong></article>
+          <article><span>This report adds</span><strong>A quantified whole-system scenario and an explicit trade: £320bn lower modelled cost for 524 Mt more power-sector CO₂.</strong></article>
+        </div>
+      </section>
+
+      <section class="panel audit" aria-labelledby="audit-title">
+        <div class="heading"><p class="eyebrow">How to read the result</p><h2 id="audit-title">Not all “savings” mean the same thing</h2></div>
+        <div class="audit-grid">
+          <article><span class="tag physical">Physical</span><h3>Build and operate less infrastructure</h3><p>Lower network, balancing and ancillary costs may represent real resource savings—if the assumed generation geography, capacity mix and slower peak-demand growth materialise.</p></article>
+          <article><span class="tag transfer">Policy transfer</span><h3>Remove carbon pricing</h3><p>£94bn of the headline comes from setting the power sector’s carbon price to zero from 2031. Bills fall, but the emissions externality and foregone public revenue do not vanish.</p></article>
+          <article><span class="tag demand">Different outcome</span><h3>Use less electricity</h3><p>The alternative reaches 441 TWh in 2050 versus 484 TWh under BAU, with less policy-driven heating, transport and hydrogen demand. Some avoided network spending accompanies less electrification.</p></article>
+          <article><span class="tag bet">Execution bet</span><h3>Build nuclear better</h3><p>The alternative assumes 20 GW of nuclear by 2050 and depends on lower construction costs and faster delivery. The model itself says future nuclear costs remain uncertain.</p></article>
+        </div>
+      </section>
+
+      <section class="panel carbon" aria-labelledby="carbon-title">
+        <div class="heading"><p class="eyebrow">The carbon bargain</p><h2 id="carbon-title">Cheaper electricity, dirtier electricity</h2></div>
+        <div class="carbon-grid"><div class="dial"><strong>23%</strong><span>unabated gas share in APP generation, 2050</span></div><div><p>The alternative’s power-sector intensity remains just below <strong>100g CO₂/kWh</strong> in 2050, while BAU approaches zero and later becomes net-negative in the model because it includes bioenergy with carbon capture.</p><p>Onward argues that cheaper power makes heat pumps and electric vehicles attractive enough to cut emissions elsewhere. But Transira explicitly does <strong>not</strong> model economy-wide emissions, household bills or effects in heat, transport and industry. That wider “cheap power accelerates electrification” payoff is therefore an argument layered onto the power-system model, not an output of it.</p></div></div>
+      </section>
+
+      <section class="panel verdict" aria-labelledby="verdict-title">
+        <div class="heading"><p class="eyebrow">Bottom line</p><h2 id="verdict-title">A useful challenge, not a settled £320bn answer</h2></div>
+        <div class="two-col"><div><h3>What holds up</h3><p>Levelised generation costs are not whole-system costs. Reliability and location matter. Network utilisation, connection delays and balancing deserve more weight. Exposing projects to more of the costs they cause is a serious reform agenda.</p></div><div><h3>What the headline hides</h3><p>The comparison changes several things at once: carbon pricing, demand, technology support, nuclear delivery, gas exposure and emissions. The £320bn is conditional on that whole bundle. It cannot by itself prove that renewables are intrinsically expensive or that the alternative is cheaper after valuing carbon and economy-wide outcomes.</p></div></div>
+        <blockquote>The report is best read as a stress test of Britain’s current pathway—not as a forecast of a guaranteed saving.</blockquote>
+      </section>
+
+      <section class="sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources &amp; scope</h2><p>All scenario figures retain the authors’ definitions. This explainer separates results produced by the Transira model from Onward’s wider interpretation.</p><ul><li><a href="https://ukonward.com/reports/firm-foundations/">Onward — Firm Foundations: The case for cheap and reliable power</a> (18 August 2026)</li><li><a href="https://ukonward.com/wp-content/uploads/2026/08/Powering-Britain_-A-comparison-of-policy-pathways-to-2050.pdf">Transira Energy — Powering Britain: A comparison of policy pathways to 2050</a> (July 2026)</li><li><a href="../uk-electricity-pricing/">Explainer — Why gas sets UK electricity prices</a></li></ul></section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
