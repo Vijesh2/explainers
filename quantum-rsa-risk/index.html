@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An interactive guide to the risk of cracking RSA encryption through advances in quantum computing and AI: Shor's algorithm, harvest now decrypt later, and the migration to post-quantum cryptography.">
+    <title>RSA on borrowed time: the quantum and AI threat</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <nav class="topline" aria-label="Breadcrumb"><a href="../">Explainers</a><span>Published · 27 October 2026</span></nav>
+
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Cryptography, explained</p>
+          <h1>RSA is living on borrowed time</h1>
+          <p class="lede">Two very different technologies are closing in on the encryption that carries most of the internet. Quantum computers promise the mathematics to break RSA outright. AI does not break the mathematics, but it is speeding up the hardware, finding the cracks in the implementation, and compressing the timetable. Neither has won yet — and yet the traffic you send today is already in the firing line.</p>
+          <p class="byline">Interactive explainer · Published 27 October 2026</p>
+        </div>
+        <div class="hero-card" aria-label="Most-cited expert window for a cryptographically relevant quantum computer">
+          <span>Most-cited window for a quantum machine that can break RSA-2048</span>
+          <strong>2030–35</strong>
+          <p>Estimates have been falling as error correction improves, which is why migration deadlines have already been set.</p>
+          <div class="trade"><b>RSA-2048</b><i></i><b>ML-KEM</b></div>
+        </div>
+      </header>
+
+      <section class="thesis"><p>The real question is not “can anyone break RSA today?” Nobody can. It is: <strong>two threats with different mechanics are arriving on different clocks, and one of them — harvest now, decrypt later — has already started.</strong> Quantum computing is the weapon. AI is the accelerator and the lockpick for everything around the lock.</p></section>
+
+      <section class="panel" aria-labelledby="split-title">
+        <div class="heading"><p class="eyebrow">Start with the distinction</p><h2 id="split-title">Quantum and AI threaten RSA in completely different ways</h2></div>
+        <div class="split-grid">
+          <article><span class="tag quantum">Quantum computing</span><h3>The existential, mathematical threat</h3><p>In 1994 Peter Shor proved that a sufficiently powerful quantum computer could factor large numbers exponentially faster than any known classical method. Factoring is the problem RSA is built on, so this is not a better lockpick — it is a key that fits every RSA lock.</p></article>
+          <div class="plus" aria-hidden="true">+</div>
+          <article><span class="tag ai">Artificial intelligence</span><h3>The accelerator and the opportunist</h3><p>AI cannot guess a 2048-bit key. What it can do is calibrate qubits, tune error correction, and spot the subtle power and electromagnetic leaks that let an attacker extract a key from a running server. It shortens the timetable and attacks the implementation.</p></article>
+        </div>
+        <p class="note">Confusing the two produces either panic (“AI will guess your key next year”) or complacency (“nothing matters until a quantum computer exists”). Both are wrong, for reasons the sections below separate out.</p>
+      </section>
+
+      <section class="panel keys" aria-labelledby="keys-title">
+        <div class="heading"><p class="eyebrow">Interactive · the difficulty is the product</p><h2 id="keys-title">Breaking RSA means factoring one number</h2><p>An RSA public key is the product of two secret primes, published openly. Anyone can multiply; only the holder knows the factors. Select a key size to see how the two threats scale.</p></div>
+        <div class="tabs" role="tablist" aria-label="RSA key sizes">
+          <button type="button" role="tab" aria-selected="false" data-key="512">RSA-512</button>
+          <button type="button" role="tab" aria-selected="false" data-key="1024">RSA-1024</button>
+          <button class="active" type="button" role="tab" aria-selected="true" data-key="2048">RSA-2048</button>
+          <button type="button" role="tab" aria-selected="false" data-key="4096">RSA-4096</button>
+        </div>
+        <div class="key-grid">
+          <div class="meters">
+            <p class="meter-label"><span>Estimated classical work factor</span><strong id="key-classical">—</strong></p>
+            <div class="meter"><i id="key-classical-bar" style="width:0%"></i></div>
+            <p class="meter-label"><span>Estimated runtime for a cryptographically relevant quantum computer</span><strong id="key-quantum">—</strong></p>
+            <div class="meter quantum"><i id="key-quantum-bar" style="width:0%"></i></div>
+            <p class="caveat">Bars are illustrative and use a compressed scale: classical effort grows exponentially with key size, while Shor's algorithm grows only polynomially. Quantum figures assume a fault-tolerant machine that does not yet exist.</p>
+          </div>
+          <article class="key-note" id="key-note" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="shor-title">
+        <div class="heading"><p class="eyebrow">Mechanism</p><h2 id="shor-title">Why a quantum computer does not care how big the key is</h2></div>
+        <div class="mech-grid">
+          <article><span>Classical approach</span><h3>Search, sequentially</h3><p>The best known classical method — the general number field sieve — does not test key combinations one by one, but it is still exponential in the length of the number. Doubling the key size roughly squares the difficulty. Throwing more hardware at it only buys linear gains.</p><p class="mini">Academic records are the tell: RSA-512 (155 digits) fell in 1999, RSA-250 (829 bits) fell in 2020 after roughly 2,700 core-years of computation. RSA-2048 has never come close.</p></article>
+          <article><span>Shor's algorithm, 1994</span><h3>Interference, in parallel</h3><p>Shor recasts factoring as a question about the repeating pattern — the period — of a mathematical function. A quantum computer evaluates many inputs at once as overlapping waves, then arranges the interference so wrong answers cancel and the right one survives. Factoring becomes polynomial in the number's length.</p><p class="mini">The catch: interference is fragile. Holding those waves steady long enough to run the algorithm needs error correction and millions of physical qubits, not the noisy hundreds or low thousands that exist today.</p></article>
+        </div>
+        <div class="timeline" aria-label="Timeline of the quantum threat to RSA">
+          <div><strong>1994</strong><span>Shor's algorithm published</span></div>
+          <div><strong>2001</strong><span>First demonstration: 15 = 3 × 5</span></div>
+          <div><strong>2019</strong><span>20 million physical qubits estimated for RSA-2048 in 8 hours</span></div>
+          <div><strong>2024–25</strong><span>Error-correction breakthroughs push qubit estimates sharply lower</span></div>
+          <div class="soon"><strong>2030–35</strong><span>Agency deadline window for a cryptographically relevant machine</span></div>
+        </div>
+        <p class="note">A “cryptographically relevant quantum computer” (CRQC) is a specific thing: a fault-tolerant machine big enough to run Shor against real keys. Today's quantum computers are small, noisy and error-prone. Where the finish line sits is genuinely uncertain — the 20-million-qubit estimate has been revised downward repeatedly, and those revisions are the main reason the timeline has moved closer.</p>
+      </section>
+
+      <section class="panel hndl" aria-labelledby="hndl-title">
+        <div class="heading"><p class="eyebrow">Interactive · why the risk is now</p><h2 id="hndl-title">Harvest now, decrypt later</h2><p>The most common misconception is that RSA is safe until someone builds a quantum computer. It isn't — encrypted traffic intercepted today can be stored and opened retroactively. Pick how long your data needs to stay secret.</p></div>
+        <div class="tabs" role="tablist" aria-label="How long the data must stay confidential">
+          <button type="button" role="tab" aria-selected="false" data-horizon="short">Under a year</button>
+          <button type="button" role="tab" aria-selected="false" data-horizon="medium">1–5 years</button>
+          <button class="active" type="button" role="tab" aria-selected="true" data-horizon="long">5–20 years</button>
+          <button type="button" role="tab" aria-selected="false" data-horizon="vlong">Decades</button>
+        </div>
+        <article class="hndl-card" id="hndl-card" aria-live="polite"></article>
+      </section>
+
+      <section class="panel" aria-labelledby="ai-title">
+        <div class="heading"><p class="eyebrow">The other technology</p><h2 id="ai-title">What AI actually does to RSA — and what it cannot</h2></div>
+        <div class="ai-grid">
+          <article><span class="tag helps">Builds the weapon</span><h3>AI accelerates quantum hardware</h3><p>Stable qubits are a control-engineering nightmare. Machine learning models calibrate qubits, optimise control pulses, tune gate fidelities, decode error-correction codes in real time and hunt for better materials. In short, AI is helping engineers reach the CRQC finish line sooner.</p></article>
+          <article><span class="tag helps">Attacks the implementation</span><h3>AI excels at side-channel attacks</h3><p>A physical server leaks information while it works: micro-fluctuations in power draw, electromagnetic radiation, timing differences. Deep-learning models are very good at pulling a key out of noisy traces that defeated older statistical methods — and at finding flaws automatically in the software around the cryptography.</p></article>
+          <article class="limit"><span class="tag cannot">Does not break the maths</span><h3>AI cannot guess a 2048-bit key</h3><p>Exhausting an RSA-2048 keyspace means trying roughly 2<sup>2048</sup> possibilities — a number that dwarfs the atoms in the observable universe. No known machine-learning technique turns that exponential problem into a small one. AI finds weaknesses; it does not repeal arithmetic.</p></article>
+        </div>
+        <p class="note">One asymmetry is worth holding on to: AI's gains against RSA are mostly gains against <em>implementations</em> — the code, the chip, the power supply. Shor's gains are against the mathematics itself. Defences therefore differ: better engineering and shielding beat the first; only post-quantum keys beat the second.</p>
+      </section>
+
+      <section class="panel defence" aria-labelledby="defence-title">
+        <div class="heading"><p class="eyebrow">The response</p><h2 id="defence-title">The upgrade is already underway</h2></div>
+        <div class="two-col">
+          <div>
+            <h3>Standards exist</h3>
+            <p>In August 2024 NIST published the first post-quantum standards: <strong>ML-KEM</strong> (key exchange), <strong>ML-DSA</strong> and <strong>SLH-DSA</strong> (digital signatures), all built on problems believed hard for both classical and quantum computers. NIST's draft transition guidance marks RSA-2048 as deprecated by 2030 and disallowed by 2035.</p>
+            <p>Deployment is live rather than theoretical: browsers, cloud providers and messaging apps already negotiate hybrid handshakes that combine a classical algorithm with a post-quantum one, so a future break of either half alone does not expose the session.</p>
+          </div>
+          <div>
+            <h3>What migration looks like</h3>
+            <ol class="steps">
+              <li><strong>Inventory.</strong> Find where RSA and other public-key algorithms are used — TLS, VPNs, code signing, certificates, firmware updates.</li>
+              <li><strong>Prioritise by data lifetime.</strong> Anything needing confidentiality for a decade is exposed to harvest-now-decrypt-later collection today.</li>
+              <li><strong>Deploy hybrid now.</strong> Layer ML-KEM alongside existing key exchange rather than switching atomically.</li>
+              <li><strong>Stay crypto-agile.</strong> Assume post-quantum algorithms will also be revised; make swapping algorithms a configuration change, not a rewrite.</li>
+            </ol>
+          </div>
+        </div>
+        <p class="note">Symmetric cryptography is a different story: Grover's algorithm only halves the effective strength of AES, so AES-256 remains comfortable. The urgent work is concentrated on public-key systems — RSA, Diffie-Hellman and elliptic curves.</p>
+      </section>
+
+      <section class="bridge" aria-labelledby="ai-bridge-title">
+        <div><p class="eyebrow">Cross-reference: artificial intelligence</p><h2 id="ai-bridge-title">AI appears here as a supporting actor, not the breaker</h2><p>In this explainer, AI shortens the timetable and attacks the implementation. The wider question — whether machine intelligence compounds quickly enough to change institutions faster than they can adapt — is the subject of the Singularity explainer.</p><a class="button" href="../singularity/">Open the Singularity explainer <span aria-hidden="true">→</span></a></div>
+        <div class="cross-grid">
+          <article><span>AI does here</span><strong>Speeds up quantum hardware, mines side-channel leaks, automates vulnerability discovery.</strong></article>
+          <article><span>AI does not</span><strong>Factor large numbers faster, or brute-force a 2048-bit keyspace by any known route.</strong></article>
+          <article><span>Still decides the outcome</span><strong>Whether migration to post-quantum standards finishes before Q-Day arrives.</strong></article>
+        </div>
+      </section>
+
+
+      <section class="panel verdict" aria-labelledby="verdict-title">
+        <div class="heading"><p class="eyebrow">Bottom line</p><h2 id="verdict-title">Is the sky falling?</h2></div>
+        <div class="two-col">
+          <div><h3>What is real</h3><p>Shor's algorithm is proven mathematics, not speculation. Estimates of the resources needed to break RSA-2048 have fallen, not risen. Harvest-now-decrypt-later collection is something nation-states are widely assessed to be doing. Migration deadlines from NIST and the UK's NCSC exist precisely because the risk is treated as active.</p></div>
+          <div><h3>What is overhyped</h3><p>That AI is about to guess RSA keys — it isn't, and there is no known path for it to. That quantum computers are ready now — today's machines are nowhere near running Shor against real keys. And that this is an all-or-nothing collapse: symmetric encryption survives, hybrid deployments already ship, and the standards needed to migrate are finished.</p></div>
+        </div>
+        <blockquote>The cryptography is not broken yet. The clock, the stored traffic and the migration schedule already are.</blockquote>
+      </section>
+
+      <section class="sources" aria-labelledby="sources-title">
+        <h2 id="sources-title">Sources &amp; scope</h2>
+        <p>Qubit counts and timelines in this explainer are estimates that have been revised repeatedly — treat every figure as a moving target, not a measurement. Resource estimates assume a future fault-tolerant machine that does not yet exist.</p>
+        <ul>
+          <li><a href="https://csrc.nist.gov/pubs/fips/203/final">NIST FIPS 203 — ML-KEM</a> (with FIPS 204 ML-DSA and FIPS 205 SLH-DSA, August 2024)</li>
+          <li><a href="https://csrc.nist.gov/pubs/ir/8547/ipd">NIST IR 8547 (draft) — Transition to Post-Quantum Cryptography Standards</a></li>
+          <li><a href="https://www.ncsc.gov.uk/guidance/preparing-for-post-quantum-cryptographic-technologies">UK NCSC — Preparing for post-quantum cryptographic technologies</a></li>
+          <li><a href="https://arxiv.org/abs/quant-ph/9508027">P. Shor — Algorithms for quantum computation: discrete logarithms and factoring</a> (1994)</li>
+          <li><a href="https://arxiv.org/abs/1905.09749">Gidney &amp; Ekerå — How to factor 2048 bit RSA integers in 8 hours using 20 million noisy qubits</a> (2019)</li>
+          <li><a href="https://en.wikipedia.org/wiki/RSA_numbers">RSA challenge numbers — public factoring records, including RSA-250 (2020)</a></li>
+          <li><a href="https://blog.cloudflare.com/post-quantum-for-all/">Cloudflare — Post-quantum cryptography for all</a> on hybrid key exchange in production</li>
+          <li>Related: <a href="../singularity/">The Singularity — intelligence at machine speed</a></li>
+        </ul>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
+
+
